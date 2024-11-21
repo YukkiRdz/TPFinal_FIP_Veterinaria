@@ -1,4 +1,4 @@
-export class Proveedor extends interface {
+export class Proveedor implements interface {
   private nombre: string;
   private telefono: number;
   private ID: number | null = null;

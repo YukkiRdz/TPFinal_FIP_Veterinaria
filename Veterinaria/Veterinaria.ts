@@ -3,6 +3,8 @@ export class Veterinaria implements interface {
   private direccion: string;
   private telefono: number;
   private ID: number | null = null;
+  private cliente: Cliente[] = [];
+  private paciente: Paciente[] = []; 
 
   constructor(nombre: string, direccion: string, numero: number, ID: number) {
     this.nombre = nombre;
@@ -30,5 +32,19 @@ export class Veterinaria implements interface {
     console.log(
       `Veterinaria Nombre - ${this.nombre} (ID: ${this.ID}) ha sido actualizada.`
     );
+  }
+
+  MostrarClientes(): void {
+    console.log("Lista de Clientes:");
+    this.cliente.forEach(cliente => {
+      console.log();
+    });
+  }
+
+  MostrarPacientes(): void {
+    console.log("Lista de Pacientes:");
+    this.pacientes.forEach(paciente => {
+      console.log(); 
+});
   }
 }
