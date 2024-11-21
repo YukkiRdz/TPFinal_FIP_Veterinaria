@@ -1,13 +1,17 @@
+import { Paciente } from "./Paciente";
+
 export class Cliente {
     private nombre: string;
     private telefono: number;
     private VIP: boolean = false;
     private ID: number | null = null; //mientras el cliente no se registre su ID es null;
     private visitas: number = 0;
+    private mascotas: Paciente[] = [];
 
-    constructor(nombre: string, telefono: number) {
+    constructor(nombre: string, telefono: number, pacientes: Paciente[]) {
         this.nombre = nombre;
         this.telefono = telefono;
+        this.mascotas = pacientes;
     }
 
     //Getters
@@ -32,6 +36,10 @@ export class Cliente {
         return this.visitas;
     }
 
+    public getPacientes(): Paciente[] {
+        return this.mascotas;
+    }
+
     //Setters
 
     public setNombre(nombre: string): void {
@@ -53,7 +61,7 @@ export class Cliente {
     registrarse(registroClientes: Cliente[]): void {
         //verifica si el cliente esta registrado o no;
         const clienteRegistrado = registroClientes.find(cliente => cliente.getNombre() === this.nombre && cliente.getTelefono() === this.telefono);
-        //si el usuario fue encontrado;
+        //si el cliente fue encontrado;
         if(!clienteRegistrado) {
             this.ID = this.generarID(); //llamo al metodo para crear el ID random propio de la clase;
             registroClientes.push(this); //almacena los clientes registrados;
