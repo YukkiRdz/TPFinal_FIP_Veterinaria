@@ -1,4 +1,5 @@
 import { Paciente } from "./Paciente";
+import { Veterinaria } from "./Veterinaria";
 
 export class Cliente {
     private nombre: string;
@@ -8,10 +9,10 @@ export class Cliente {
     private visitas: number = 0;
     private mascotas: Paciente[] = [];
 
-    constructor(nombre: string, telefono: number, pacientes: Paciente[]) {
+    constructor(nombre: string, telefono: number) {
         this.nombre = nombre;
         this.telefono = telefono;
-        this.mascotas = pacientes;
+
     }
 
     //Getters
@@ -58,7 +59,7 @@ export class Cliente {
 
     //Metodos
 
-    registrarse(registroClientes: Cliente[]): void {
+    registrarse(registroClientes: Cliente[], veterinaria: Veterinaria): void {
         //verifica si el cliente esta registrado o no;
         const clienteRegistrado = registroClientes.find(cliente => cliente.getNombre() === this.nombre && cliente.getTelefono() === this.telefono);
         //si el cliente fue encontrado;
