@@ -1,4 +1,4 @@
-export class Veterinaria extends interface {
+export class Veterinaria implements interface {
   private nombre: string;
   private direccion: string;
   private telefono: number;
@@ -7,7 +7,7 @@ export class Veterinaria extends interface {
   constructor(nombre: string, direccion: string, numero: number, ID: number) {
     this.nombre = nombre;
     this.direccion = direccion;
-    this.numero = numero;
+    this.telefono = numero;
     this.ID = ID;
   }
 
