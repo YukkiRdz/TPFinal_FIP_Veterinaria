@@ -56,7 +56,7 @@ export class Paciente {
             paciente.push(this); //almacena los pacientes registrados;
             console.log(`El ${this.especie} ${this.nombre} ha sido registrado exitosamente. Su ID es ${this.ID}`);
         } else {
-            console.warn(`${pacienteRegistrado.getNombre()} ya está registrado. El ID de su dueño es ${pacienteRegistrado.getID()}`);
+            console.error(`${pacienteRegistrado.getNombre()} ya está registrado. El ID de su dueño es ${pacienteRegistrado.getID()}`);
         }
     }
 

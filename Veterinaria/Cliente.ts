@@ -1,6 +1,4 @@
 import { Paciente } from "./Paciente";
-import { Veterinaria } from "./Veterinaria";
-
 export class Cliente {
     private nombre: string;
     private telefono: number;
@@ -59,7 +57,22 @@ export class Cliente {
 
     //Metodos
 
-    registrarse(registroClientes: Cliente[], veterinaria: Veterinaria): void {
+    esVip(visitas: number): boolean {
+        //Si el numero de visitaas es igual o mayor que 5, el cliente es VIP;
+        if (visitas >= 5) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    //contador de visitas
+    contadorVisitas() {
+
+    }
+
+    //agregar a cada vet su propio arreglo de clientes;
+    registrarse(registroClientes: Cliente[]): void {
         //verifica si el cliente esta registrado o no;
         const clienteRegistrado = registroClientes.find(cliente => cliente.getNombre() === this.nombre && cliente.getTelefono() === this.telefono);
         //si el cliente fue encontrado;
@@ -68,7 +81,7 @@ export class Cliente {
             registroClientes.push(this); //almacena los clientes registrados;
             console.log(`El cliente ${this.nombre} ha sido registrado exitosamente. Su ID es ${this.ID}`);
         } else {
-            console.warn(`${clienteRegistrado.getNombre()} ya está registrado. Su ID es ${clienteRegistrado.getID()}`);
+            console.error(`${clienteRegistrado.getNombre()} ya está registrado. Su ID es ${clienteRegistrado.getID()}`);
         }
     }
 
@@ -84,7 +97,7 @@ export class Cliente {
             registroClientes.splice(clienteRegistrado, 1);
             console.log(`El cliente ${this.nombre} con ID ${this.ID} ha sido eliminado.`);
         } else {
-            console.warn(`El cliente con ID ${this.ID} no ha sido encontrado. Intente nuevamente`);
+            console.error(`El cliente con ID ${this.ID} no ha sido encontrado. Intente nuevamente`);
         }
     }
 
@@ -97,7 +110,7 @@ export class Cliente {
             if (datosAModificar.telefono) registroClientes[indexClienteRegistrado].setTelefono(datosAModificar.telefono);
             console.log(`El cliente ${this.nombre} con ID ${this.ID} ha sido modificado exitosamente. Sus nuevos datos son ${this}`);
         } else {
-            console.warn(`El cliente con ID ${this} no ha sido encontrado. Intente nuevamente`);
+            console.error(`El cliente con ID ${this} no ha sido encontrado. Intente nuevamente`);
         }
     }
 }
