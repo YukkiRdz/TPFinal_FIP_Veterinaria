@@ -1,5 +1,5 @@
-interface Registros {
+export interface Registros {
   registrarse(): number;
   darBaja(): void;
-  modRegistro(nombre: string, direccion: string, telefono: number): void;
+  modRegistro(nombre: string, direccion?: string, telefono?: number): void;
 }
