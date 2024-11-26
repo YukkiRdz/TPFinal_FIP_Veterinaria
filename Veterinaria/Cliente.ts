@@ -1,11 +1,12 @@
 import { Paciente } from "./Paciente";
-export class Cliente {
+import { Registro } from './Interface';
+export class Cliente implements Registro<Cliente> {
     private nombre: string;
     private telefono: number;
     private VIP: boolean = false;
     private ID: number | null = null; //mientras el cliente no se registre su ID es null;
     private visitas: number = 0;
-    private mascotas: Paciente[] = [];
+    private pacientes: Paciente[] = [];
 
     constructor(nombre: string, telefono: number) {
         this.nombre = nombre;
@@ -36,7 +37,7 @@ export class Cliente {
     }
 
     public getPacientes(): Paciente[] {
-        return this.mascotas;
+        return this.pacientes;
     }
 
     //Setters
@@ -57,18 +58,16 @@ export class Cliente {
 
     //Metodos
 
-    esVip(visitas: number): boolean {
-        //Si el numero de visitaas es igual o mayor que 5, el cliente es VIP;
-        if (visitas >= 5) {
-            return true;
-        } else {
-            return false;
-        }
+    //VIP
+    esVIP(): boolean {
+        return this.visitas >= 5;
     }
 
     //contador de visitas
-    contadorVisitas() {
-
+    visitarVeterinaria(): void {
+        this.visitas++;
+        this.VIP = this.esVIP();
+        console.log(`El cliente ${this.nombre} ha visitado ${this.visitas} vez/veces. Es VIP?: ${this.VIP}`);
     }
 
     //agregar a cada vet su propio arreglo de clientes;
@@ -93,7 +92,7 @@ export class Cliente {
         //verifica si el cliente esta registrado o no;
         const clienteRegistrado = registroClientes.findIndex(cliente => cliente.getID() === this.ID);
         //si el cliente esta registrado, lo elimina del array;
-        if (clienteRegistrado === 1) {
+        if (clienteRegistrado >= 0) {
             registroClientes.splice(clienteRegistrado, 1);
             console.log(`El cliente ${this.nombre} con ID ${this.ID} ha sido eliminado.`);
         } else {
@@ -101,16 +100,58 @@ export class Cliente {
         }
     }
 
-    modRegistro(registroClientes: Cliente[], ID: number, datosAModificar: { nombre?: string; telefono?: number}): void {
+    modRegistro(registroClientes: Cliente[], datosAModificar: { nombre?: string; telefono?: number}): void {
         //verifica si el cliente esta registrado o no;
-        const indexClienteRegistrado = registroClientes.findIndex(cliente => cliente.getID() === ID);
-        //si el cliente esta registrado, lo elimina del array;
-        if (indexClienteRegistrado === 1) {
-            if (datosAModificar.nombre) registroClientes[indexClienteRegistrado].setNombre(datosAModificar.nombre);
-            if (datosAModificar.telefono) registroClientes[indexClienteRegistrado].setTelefono(datosAModificar.telefono);
+        const indexClienteRegistrado = registroClientes.findIndex(cliente => cliente.getID() === this.ID);
+        //si el cliente esta registrado, modifica los datos ingresados;
+        if (indexClienteRegistrado >= 0) {
+            const clienteMod = registroClientes[indexClienteRegistrado];
+            if (datosAModificar.nombre) clienteMod.setNombre(datosAModificar.nombre);
+            if (datosAModificar.telefono) clienteMod.setTelefono(datosAModificar.telefono);
             console.log(`El cliente ${this.nombre} con ID ${this.ID} ha sido modificado exitosamente. Sus nuevos datos son ${this}`);
         } else {
             console.error(`El cliente con ID ${this} no ha sido encontrado. Intente nuevamente`);
+        }
+    }
+
+    //Metodos de registro de PACIENTES;
+
+    registrarPaciente(paciente: Paciente): void {
+        //verifica si el paciente esta registrado o no;
+        const pacienteRegistrado = this.pacientes.find(paciente => paciente.getNombre() === paciente.getNombre() && paciente.getEspecie() === paciente.getEspecie());
+        //si el paciente fue encontrado;
+        if (!pacienteRegistrado) {
+            paciente.setID(this.ID); // Asignamos el ID del cliente al paciente
+            this.pacientes.push(paciente);
+            console.log(`El paciente ${paciente.getNombre()} ha sido registrado bajo el cliente ${this.nombre}.`);
+        } else {
+            console.error(`El paciente ${paciente.getNombre()} ya está registrado bajo el cliente ${this.nombre}.`);
+        }
+    }
+
+    darBajaPaciente(paciente: Paciente): void {
+        //verifica si el paciente esta registrado o no;
+        const pacienteRegistrado = this.pacientes.findIndex(paciente => paciente.getID() === paciente.getID());
+        //si el paciente esta registrado, lo elimina del array;
+        if (pacienteRegistrado >= 0) {
+            this.pacientes.splice(pacienteRegistrado, 1);
+            console.log(`El paciente ${paciente.getNombre()} con ID ${paciente.getID()} ha sido eliminado.`);
+        } else {
+            console.error(`El paciente con ID ${paciente.getID()} no ha sido encontrado. Intente nuevamente`);
+        }
+    }
+
+    modPaciente(paciente: Paciente, datosAModificar: { nombre?: string; especie?: string}): void {
+        //verifica si el paciente esta registrado o no;
+        const indexPacienteRegistrado = this.pacientes.findIndex(paciente => paciente.getID() === paciente.getID());
+        //si el paciente esta registrado, lo elimina del array;
+        if (indexPacienteRegistrado >= 0) {
+            const pacienteMod = paciente[indexPacienteRegistrado];
+            if (datosAModificar.nombre) pacienteMod.setNombre(datosAModificar.nombre);
+            if (datosAModificar.especie) pacienteMod.setEspecie(datosAModificar.especie);
+            console.log(`El paciente ${pacienteMod.getNombre()} con ID ${paciente.getID()} ha sido modificado exitosamente. Sus nuevos datos son ${pacienteMod}}`);
+        } else {
+            console.error(`El paciente con ID ${paciente.getID()} no ha sido encontrado.`);
         }
     }
 }
