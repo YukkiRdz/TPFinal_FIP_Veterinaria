@@ -1,0 +1,12 @@
+{
+  "name": "tpfinal_fip_veterinaria",
+  "version": "1.0.0",
+  "description": "Trabajo final FIP",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Mastroianni Jeremias Nehuen y Thiago Rodriguez",
+  "license": "ISC"
+}

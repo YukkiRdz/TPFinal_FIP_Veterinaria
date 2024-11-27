@@ -1,3 +1,6 @@
+import { Proveedor } from "./Proveedor";
+import { Veterinaria } from "./Veterinaria";
+
 export class RedVeterinaria {
   private arrayVeterinarias: Veterinaria[] = [];
   private arrayProveedores: Proveedor[] = [];

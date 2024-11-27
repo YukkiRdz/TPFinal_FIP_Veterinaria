@@ -1,4 +1,4 @@
-import { Registros } from "./Registros";
+import { Registros } from "./Interface";
 import { RedVeterinaria } from "./RedVeterinaria";
 
 export class Proveedor implements Registros {

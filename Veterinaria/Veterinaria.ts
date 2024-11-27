@@ -1,5 +1,6 @@
 import { Registros } from "./Registros";
 import { RedVeterinaria } from "./RedVeterinaria";
+import { Proveedor } from "./Proveedor";
 
 export class Veterinaria implements Registros {
   private nombre: string;
