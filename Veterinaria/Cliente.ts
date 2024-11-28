@@ -1,6 +1,8 @@
 import { Paciente } from "./Paciente";
 import { Registro } from './Interface';
-export class Cliente implements Registro<Cliente> {
+import { RedVeterinaria } from "./RedVeterinaria";
+import { ID } from "./ID";
+export class Cliente implements Registro<Cliente, ID>  {
     private nombre: string;
     private telefono: number;
     private VIP: boolean = false;
@@ -71,16 +73,25 @@ export class Cliente implements Registro<Cliente> {
     }
 
     //agregar a cada vet su propio arreglo de clientes;
-    registrarse(registroClientes: Cliente[]): void {
+    registrarse(registroClientes: Cliente[], ID: ID[]): void {
         //verifica si el cliente esta registrado o no;
         const clienteRegistrado = registroClientes.find(cliente => cliente.getNombre() === this.nombre && cliente.getTelefono() === this.telefono);
-        //si el cliente fue encontrado;
+        //si el cliente no fue encontrado;
         if(!clienteRegistrado) {
             this.ID = this.generarID(); //llamo al metodo para crear el ID random propio de la clase;
+            //verifica si el ID se repite;
+            const IDRegistrado = ID.find(id => id.getID() === this.ID);
+
+            if (IDRegistrado) {
+                this.ID = this.generarID();
+            } else {
             registroClientes.push(this); //almacena los clientes registrados;
             console.log(`El cliente ${this.nombre} ha sido registrado exitosamente. Su ID es ${this.ID}`);
-        } else {
+            }
+
+        if(clienteRegistrado) {
             console.error(`${clienteRegistrado.getNombre()} ya está registrado. Su ID es ${clienteRegistrado.getID()}`);
+            }
         }
     }
 
