@@ -5,6 +5,11 @@ export class ID {
         this.ID = this.generarID();
     }
 
+    //getters
+    public getID(): number{
+        return this.ID;
+    }
+
     //Metodo;
     
     generarID(): number {

@@ -13,7 +13,6 @@ export class Cliente implements Registro<Cliente, ID>  {
     constructor(nombre: string, telefono: number) {
         this.nombre = nombre;
         this.telefono = telefono;
-
     }
 
     //Getters
@@ -73,14 +72,14 @@ export class Cliente implements Registro<Cliente, ID>  {
     }
 
     //agregar a cada vet su propio arreglo de clientes;
-    registrarse(registroClientes: Cliente[], ID: ID[]): void {
+    registrarse(registroClientes: Cliente[], registroID: ID[]): void {
         //verifica si el cliente esta registrado o no;
         const clienteRegistrado = registroClientes.find(cliente => cliente.getNombre() === this.nombre && cliente.getTelefono() === this.telefono);
         //si el cliente no fue encontrado;
         if(!clienteRegistrado) {
             this.ID = this.generarID(); //llamo al metodo para crear el ID random propio de la clase;
             //verifica si el ID se repite;
-            const IDRegistrado = ID.find(id => id.getID() === this.ID);
+            const IDRegistrado = registroID.find(id => id.getID() === this.ID);
 
             if (IDRegistrado) {
                 this.ID = this.generarID();
