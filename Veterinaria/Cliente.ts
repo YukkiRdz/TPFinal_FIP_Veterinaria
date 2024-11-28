@@ -78,11 +78,14 @@ export class Cliente implements Registro<Cliente, ID>  {
         //si el cliente no fue encontrado;
         if(!clienteRegistrado) {
             this.ID = this.generarID(); //llamo al metodo para crear el ID random propio de la clase;
+            //HAY QUE AGREGAR EL ID A LA BASE DE IDs;
+            registroID.push(this.ID);
             //verifica si el ID se repite;
             const IDRegistrado = registroID.find(id => id.getID() === this.ID);
-
+            //Se genera un nuevo ID;
             if (IDRegistrado) {
                 this.ID = this.generarID();
+                //HAY QUE AGREGAR EL ID A LA BASE DE IDs;
             } else {
             registroClientes.push(this); //almacena los clientes registrados;
             console.log(`El cliente ${this.nombre} ha sido registrado exitosamente. Su ID es ${this.ID}`);

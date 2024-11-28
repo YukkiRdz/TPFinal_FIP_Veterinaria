@@ -1,5 +1,6 @@
 export class ID {
     private ID: number;
+    private arrayID: ID[] = [];
 
     constructor(ID: number) {
         this.ID = this.generarID();
