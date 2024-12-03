@@ -70,37 +70,39 @@ export class Cliente implements Registro<Cliente>  {
         console.log(`El cliente ${this.nombre} ha visitado ${this.visitas} vez/veces. Es VIP?: ${this.VIP}`);
     }
 
-    //agregar a cada vet su propio arreglo de clientes;
+    //metodo de registro de clientes
     registrarse(registroClientes: Cliente[], registroID: number[]): void {
         //verifica si el cliente esta registrado o no;
         const clienteRegistrado = registroClientes.find(cliente => cliente.getNombre() === this.nombre && cliente.getTelefono() === this.telefono);
-        //si el cliente no fue encontrado;
-        if(!clienteRegistrado) {
-            this.ID = this.generarID(); //llamo al metodo para crear el ID random propio de la clase;
-            //agrega el ID al registro;
-            registroID.push(this.ID);
-            //verifica si el ID se repite;
-            const IDRegistrado = registroID.findIndex(id => id === this.ID);
-            //Se genera un nuevo ID;
-            if (IDRegistrado) {
-                this.ID = this.generarID();
-                //agrega el ID al registro;
-                registroID.push(this.ID);
-            } else {
-            registroClientes.push(this); //almacena los clientes registrados;
-            console.log(`El cliente ${this.nombre} ha sido registrado exitosamente. Su ID es ${this.ID}`);
-            }
 
+        //si el cliente ya fue registrado;
         if(clienteRegistrado) {
             console.error(`${clienteRegistrado.getNombre()} ya está registrado. Su ID es ${clienteRegistrado.getID()}`);
+            return;
             }
+
+        //genera el ID unico para cada cliente;
+        let nuevoID: number;
+        
+        //mientras el nuevoID ya haya sido registrado;
+        while(registroID.includes(nuevoID)) {
+            //genera un ID nuevamente;
+            nuevoID = this.generarID();
         }
+
+        this.ID = nuevoID; //ID asignado a cada cliente;
+        registroID.push(this.ID); //almacena el ID correspondiente;
+        registroClientes.push(this); //almacena los clientes registrados;
+
+        console.log(`El cliente ${this.nombre} ha sido registrado exitosamente. Su ID es ${this.ID}`);
     }
 
+    //metodo para generar IDs randoms;
     generarID(): number {
         return Math.floor(Math.random() * 100000); //Genera un ID random;
     }
 
+    //metodo para dar de baja un cliente;
     darBaja(registroClientes: Cliente[]): void {
         //verifica si el cliente esta registrado o no;
         const clienteRegistrado = registroClientes.findIndex(cliente => cliente.getID() === this.ID);
@@ -113,6 +115,7 @@ export class Cliente implements Registro<Cliente>  {
         }
     }
 
+    //modificar un registro;
     modRegistro(registroClientes: Cliente[], datosAModificar: { nombre?: string; telefono?: number}): void {
         //verifica si el cliente esta registrado o no;
         const indexClienteRegistrado = registroClientes.findIndex(cliente => cliente.getID() === this.ID);
@@ -127,12 +130,14 @@ export class Cliente implements Registro<Cliente>  {
         }
     }
 
+                                    //----------------------------REGISTRO DE PACIENTES------------------------------------
+
     //Metodos de registro de PACIENTES;
 
     registrarPaciente(paciente: Paciente): void {
         //verifica si el paciente esta registrado o no;
         const pacienteRegistrado = this.pacientes.find(paciente => paciente.getNombre() === paciente.getNombre() && paciente.getEspecie() === paciente.getEspecie());
-        //si el paciente fue encontrado;
+        //si el paciente no fue registrado;
         if (!pacienteRegistrado) {
             paciente.setID(this.ID); // Asignamos el ID del cliente al paciente
             this.pacientes.push(paciente);
@@ -157,7 +162,7 @@ export class Cliente implements Registro<Cliente>  {
     modPaciente(paciente: Paciente, datosAModificar: { nombre?: string; especie?: string}): void {
         //verifica si el paciente esta registrado o no;
         const indexPacienteRegistrado = this.pacientes.findIndex(paciente => paciente.getID() === paciente.getID());
-        //si el paciente esta registrado, lo elimina del array;
+        //si el paciente esta registrado, modifica los datos ingresados;
         if (indexPacienteRegistrado >= 0) {
             const pacienteMod = paciente[indexPacienteRegistrado];
             if (datosAModificar.nombre) pacienteMod.setNombre(datosAModificar.nombre);
