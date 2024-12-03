@@ -1,5 +1,4 @@
 import { Registro } from "./Interface";
-import { RedVeterinaria } from "./RedVeterinaria";
 
 export class Proveedor implements Registro<Proveedor> {
   private nombre: string;
@@ -47,9 +46,9 @@ export class Proveedor implements Registro<Proveedor> {
 
     //si el proveedor ya fue registrado;
     if(proveedorRegistrado) {
-        console.error(`El proveedor ${proveedorRegistrado.getNombre()} ya está registrado. Su ID es ${proveedorRegistrado.getID()}`);
-        return;
-        }
+      console.error(`El proveedor ${proveedorRegistrado.getNombre()} ya está registrado. Su ID es ${proveedorRegistrado.getID()}`);
+      return;
+    }
 
     //genera el ID unico para cada proveedor;
     let nuevoID: number;
@@ -67,10 +66,11 @@ export class Proveedor implements Registro<Proveedor> {
     console.log(`El proveedor ${this.nombre} ha sido registrado exitosamente. Su ID es ${this.ID}`);
 }
 
-//metodo para generar IDs randoms;
-generarID(): number {
+  //metodo para generar IDs randoms;
+  generarID(): number {
     return Math.floor(Math.random() * 100000); //Genera un ID random;
-}
+  }
+
   darBaja(registroProveedores: Proveedor[]): void {
       //verifica si el proveedor esta registrado o no;
       const proveedorRegistrado = registroProveedores.findIndex(proveedor => proveedor.getID() === this.ID);
@@ -91,9 +91,9 @@ generarID(): number {
         const proveedorMod = registroProveedores[indexProveedorRegistrado];
         if (datosAModificar.nombre) proveedorMod.setNombre(datosAModificar.nombre);
         if (datosAModificar.telefono) proveedorMod.setTelefono(datosAModificar.telefono);
-        console.log(`El proveedor ${this.nombre} con ID ${this.ID} ha sido modificado exitosamente. Sus nuevos datos son ${this}`);
+        console.log(`El proveedor ${this.nombre} con ID ${this.ID} ha sido modificado exitosamente. Sus nuevos datos son:\nNombre: ${proveedorMod.getNombre()}.\nTelefono: ${proveedorMod.getTelefono()}.`);
     } else {
-        console.error(`El proveedor con ID ${this} no ha sido encontrado. Intente nuevamente`);
+        console.error(`El proveedor con ID ${this.ID} no ha sido encontrado. Intente nuevamente`);
     }
   }
 }

@@ -15,7 +15,6 @@ export class Cliente implements Registro<Cliente>  {
     }
 
     //Getters
-
     public getNombre(): string {
         return this.nombre;
     }
@@ -41,7 +40,6 @@ export class Cliente implements Registro<Cliente>  {
     }
 
     //Setters
-
     public setNombre(nombre: string): void {
         if(!nombre){
             throw new Error('Nombre invalido');
@@ -79,7 +77,7 @@ export class Cliente implements Registro<Cliente>  {
         if(clienteRegistrado) {
             console.error(`${clienteRegistrado.getNombre()} ya está registrado. Su ID es ${clienteRegistrado.getID()}`);
             return;
-            }
+        }
 
         //genera el ID unico para cada cliente;
         let nuevoID: number;
@@ -124,13 +122,13 @@ export class Cliente implements Registro<Cliente>  {
             const clienteMod = registroClientes[indexClienteRegistrado];
             if (datosAModificar.nombre) clienteMod.setNombre(datosAModificar.nombre);
             if (datosAModificar.telefono) clienteMod.setTelefono(datosAModificar.telefono);
-            console.log(`El cliente ${this.nombre} con ID ${this.ID} ha sido modificado exitosamente. Sus nuevos datos son ${this}`);
+            console.log(`El cliente ${this.nombre} con ID ${this.ID} ha sido modificado exitosamente. Sus nuevos datos son:\nNombre: ${clienteMod.getNombre()}.\nTelefono: ${clienteMod.getTelefono()}.`);
         } else {
-            console.error(`El cliente con ID ${this} no ha sido encontrado. Intente nuevamente`);
+            console.error(`El cliente con ID ${this.ID} no ha sido encontrado. Intente nuevamente`);
         }
     }
 
-                                    //----------------------------REGISTRO DE PACIENTES------------------------------------
+    //                        ----------------------------REGISTRO DE PACIENTES------------------------------------
 
     //Metodos de registro de PACIENTES;
 
@@ -167,7 +165,7 @@ export class Cliente implements Registro<Cliente>  {
             const pacienteMod = paciente[indexPacienteRegistrado];
             if (datosAModificar.nombre) pacienteMod.setNombre(datosAModificar.nombre);
             if (datosAModificar.especie) pacienteMod.setEspecie(datosAModificar.especie);
-            console.log(`El paciente ${pacienteMod.getNombre()} con ID ${paciente.getID()} ha sido modificado exitosamente. Sus nuevos datos son ${pacienteMod}}`);
+            console.log(`El paciente ${pacienteMod.getNombre()} con ID ${paciente.getID()} ha sido modificado exitosamente. Sus nuevos datos son:\nNombre: ${pacienteMod.getNombre()}.\nEspecie: ${pacienteMod.getEspecie()}.`);
         } else {
             console.error(`El paciente con ID ${paciente.getID()} no ha sido encontrado.`);
         }

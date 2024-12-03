@@ -1,11 +1,10 @@
 import { Veterinaria } from "./Veterinaria";
 import { Proveedor } from "./Proveedor";
-import { ID } from "./ID";
 
 export class RedVeterinaria {
     private arrayVeterinarias: Veterinaria[] = [];
     private arrayProveedores: Proveedor[] = [];
-    protected registroID: ID[] = [];
+    protected registroID: number[] = [];
   
     listadoVeterinarias(): Veterinaria[] {
       return this.arrayVeterinarias;
