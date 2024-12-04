@@ -1,10 +1,12 @@
 import * as readline from "readline";
 import { RedVeterinaria } from "./RedVeterinaria";
-import { Veterinaria } from "./Veterinaria";
 import { Proveedor } from "./Proveedor";
-// Faltaria agregar Cliente y Paciente
+import { Veterinaria } from "./Veterinaria";
+import { Cliente } from "./Cliente";
+import { Paciente } from "./Paciente";
 
-const redVeterinaria = new RedVeterinaria();
+
+const redVeterinaria = new RedVeterinaria('OlavarriaFip');
 
 class MenuConsola {
   private rl = readline.createInterface({
@@ -128,3 +130,74 @@ class MenuConsola {
 // Inicializar el menú
 const menu = new MenuConsola();
 menu.iniciar();
+
+//-------------MENU MOSTRAR VETERINARIA------------------------
+
+//private mostrarMenuSuc(): void {
+    //console.log(`
+        //===== MENÚ SUCURSALES =====
+        // 1. Veterinaria 1
+        // 2. Veterinaria 2
+        // 3. Veterinaria 3
+        // 4. Veterinaria 4
+        // 5. Salir
+        // `);
+
+    //this.rl.question("Seleccione una opción: ", (opcion) => {
+       //this.procesarOpcion(opcion);
+    //});
+//}
+
+//private mostrarMenuVet(): void {
+    //console.log(`
+            //===== MENÚ VETERINARIA =====
+            // 1. Registrar cliente
+            // 2. Mostrar clientes
+            // 3. Mostrar pacientes
+            // 4. Modificar datos de la veterinaria
+            // 5. Dar de baja veterinaria
+            // 6. Atras (vuelve al menu anterior)
+            // 7. Salir (vuelve al menu principal)
+            // `);
+
+        //this.rl.question("Seleccione una opción: ", (opcion) => {
+        //this.procesarOpcion(opcion);
+        //});
+//}
+
+//private mostrarMenuCliente(): void {
+    //console.log(`
+            //===== MENÚ CLIENTE =====
+            // 1. Modificar cliente
+            // 2. Dar de baja cliente
+            // 3. Registrar paciente
+            // 4. Mostrar pacientes
+            // 5. Modificar paciente
+            // 6. Dar de baja paciente
+            // 7. Atras (vuelve al menu anterior)
+            // 8. Salir (vuelve al menu principal)
+            // `);
+
+        //this.rl.question("Seleccione una opción: ", (opcion) => {
+        //this.procesarOpcion(opcion);
+        //});
+//}
+
+//1-VET 1
+    //1-Registrar cliente
+    //2-Mostrar clientes
+        //1-Cliente 1
+            //1-Registrar paciente
+            //2-Mostrar pacientes
+        //2-Cliente 2
+            //1-Registrar paciente
+            //2-Mostrar pacientes
+//2-VET 2
+    //1-Registrar cliente
+    //2-Mostrar clientes
+        //1-Cliente 1
+            //1-Registrar paciente
+            //2-Mostrar pacientes
+        //2-Cliente 2
+            //1-Registrar paciente
+            //2-Mostrar pacientes
