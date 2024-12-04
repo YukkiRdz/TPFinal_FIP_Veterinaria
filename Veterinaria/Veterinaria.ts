@@ -77,7 +77,7 @@ if(veterinariaRegistrada) {
 }
 
 //genera el ID unico para cada veterinaria;
-let nuevoID: number;
+let nuevoID: number = this.generarID();
   
 //mientras el nuevoID ya haya sido registrado;
 while(registroID.includes(nuevoID)) {

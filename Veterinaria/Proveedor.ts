@@ -51,7 +51,7 @@ export class Proveedor implements Registro<Proveedor> {
     }
 
     //genera el ID unico para cada proveedor;
-    let nuevoID: number;
+    let nuevoID: number = this.generarID();
     
     //mientras el nuevoID ya haya sido registrado;
     while(registroID.includes(nuevoID)) {
