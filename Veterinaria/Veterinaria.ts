@@ -126,13 +126,25 @@ modRegistro(registroVeterinarias: Veterinaria[], datosAModificar: { nombre?: str
   }
 }
 
-  mostrarClientes(): void {
+public mostrarClientes(): void {
+  if (this.clientes.length === 0) {
+    console.log("No hay clientes registrados.");
+  } else {
     console.log("Lista de Clientes:");
-    this.clientes.forEach((cliente) => console.log(cliente));
+    this.clientes.forEach((cliente, index) => {
+      console.log(`${index + 1}. Cliente: ${cliente.getNombre()}, Teléfono: ${cliente.getTelefono()}`);
+    });
   }
+}
 
-  mostrarPacientes(): void {
+public mostrarPacientes(): void {
+  if (this.pacientes.length === 0) {
+    console.log("No hay pacientes registrados.");
+  } else {
     console.log("Lista de Pacientes:");
-    this.pacientes.forEach((paciente) => console.log(paciente));
+    this.pacientes.forEach((paciente, index) => {
+      console.log(`${index + 1}. Paciente: ${paciente.getNombre()}, Cliente ${paciente.getID()}`);
+    });
   }
+}
 }
