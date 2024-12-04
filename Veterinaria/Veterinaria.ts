@@ -137,7 +137,23 @@ public mostrarClientes(): void {
   }
 }
 
+public actualizarPacientes(): void {
+  // Itera sobre los clientes y agrega sus pacientes al array de pacientes.
+  this.clientes.forEach(cliente => {
+      cliente.getPacientes().forEach(paciente => {
+        //evita que se dupliquen los pacientes.
+        if (!this.pacientes.find(p => p.getID() === paciente.getID())) {
+          this.pacientes.push(paciente);
+        }
+      });
+  });
+
+  console.log("Pacientes actualizados exitosamente en la veterinaria.");
+}
+
+
 public mostrarPacientes(): void {
+  this.actualizarPacientes();
   if (this.pacientes.length === 0) {
     console.log("No hay pacientes registrados.");
   } else {
