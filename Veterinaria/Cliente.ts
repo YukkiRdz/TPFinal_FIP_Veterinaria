@@ -122,9 +122,9 @@ export class Cliente implements Registro<Cliente>  {
             const clienteMod = registroClientes[indexClienteRegistrado];
             if (datosAModificar.nombre) clienteMod.setNombre(datosAModificar.nombre);
             if (datosAModificar.telefono) clienteMod.setTelefono(datosAModificar.telefono);
-            console.log(`El cliente ${this.nombre} con ID ${this.ID} ha sido modificado exitosamente. Sus nuevos datos son:\nNombre: ${clienteMod.getNombre()}.\nTelefono: ${clienteMod.getTelefono()}.`);
+            console.log(`El cliente con ID ${this.ID} ha sido modificado exitosamente. Sus nuevos datos son:\nNombre: ${clienteMod.getNombre()}.\nTelefono: ${clienteMod.getTelefono()}.`);
         } else {
-            console.error(`El cliente con ID ${this.ID} no ha sido encontrado. Intente nuevamente`);
+            console.error(`El cliente no ha sido encontrado. Intente nuevamente`);
         }
     }
 
@@ -162,12 +162,12 @@ export class Cliente implements Registro<Cliente>  {
         const indexPacienteRegistrado = this.pacientes.findIndex(paciente => paciente.getID() === paciente.getID());
         //si el paciente esta registrado, modifica los datos ingresados;
         if (indexPacienteRegistrado >= 0) {
-            const pacienteMod = paciente[indexPacienteRegistrado];
+            const pacienteMod = this.pacientes[indexPacienteRegistrado];
             if (datosAModificar.nombre) pacienteMod.setNombre(datosAModificar.nombre);
             if (datosAModificar.especie) pacienteMod.setEspecie(datosAModificar.especie);
-            console.log(`El paciente ${pacienteMod.getNombre()} con ID ${paciente.getID()} ha sido modificado exitosamente. Sus nuevos datos son:\nNombre: ${pacienteMod.getNombre()}.\nEspecie: ${pacienteMod.getEspecie()}.`);
+            console.log(`El paciente con ID ${paciente.getID()} ha sido modificado exitosamente. Sus nuevos datos son:\nNombre: ${pacienteMod.getNombre()}.\nEspecie: ${pacienteMod.getEspecie()}.`);
         } else {
-            console.error(`El paciente con ID ${paciente.getID()} no ha sido encontrado.`);
+            console.error(`El paciente no ha sido encontrado.`);
         }
     }
 }

@@ -91,9 +91,9 @@ export class Proveedor implements Registro<Proveedor> {
         const proveedorMod = registroProveedores[indexProveedorRegistrado];
         if (datosAModificar.nombre) proveedorMod.setNombre(datosAModificar.nombre);
         if (datosAModificar.telefono) proveedorMod.setTelefono(datosAModificar.telefono);
-        console.log(`El proveedor ${this.nombre} con ID ${this.ID} ha sido modificado exitosamente. Sus nuevos datos son:\nNombre: ${proveedorMod.getNombre()}.\nTelefono: ${proveedorMod.getTelefono()}.`);
+        console.log(`El proveedor con ID ${this.ID} ha sido modificado exitosamente. Sus nuevos datos son:\nNombre: ${proveedorMod.getNombre()}.\nTelefono: ${proveedorMod.getTelefono()}.`);
     } else {
-        console.error(`El proveedor con ID ${this.ID} no ha sido encontrado. Intente nuevamente`);
+        console.error(`El proveedor no ha sido encontrado. Intente nuevamente`);
     }
   }
 }

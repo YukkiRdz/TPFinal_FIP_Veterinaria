@@ -3,6 +3,7 @@ import { Veterinaria } from "./Veterinaria";
 import { Proveedor } from "./Proveedor";
 import { Cliente } from "./Cliente";
 import { Paciente } from "./Paciente";
+import { log } from "console";
 
 //creacion de la red de veterinarias;
 const RedVets = new RedVeterinaria('OlavarriaFip');
@@ -25,8 +26,13 @@ const pac2 = new Paciente('India', 'Perro');
 
 //registros de la Red;
 let registroVeterinarias: Veterinaria[] = RedVets.listadoVeterinarias();
+console.log(`Veterinarias registradas: ${registroVeterinarias}`);
+
 let registroProveedores: Proveedor[] = RedVets.listadoProveedores();
+console.log(`Proveedores registrados: ${registroProveedores}`);
+
 let registroID: number[] = RedVets.listadoID();
+console.log(`IDs registrados: ${registroID}`);
 
 //Registro de sucursales;
 vet1.registrarse(registroVeterinarias, registroID);
@@ -46,7 +52,28 @@ cliente2.registrarse(registroClientes2, registroID);
 //Registro de paciente;
 cliente1.registrarPaciente(paciente1);
 
+//Modificacion de registros
+cliente1.modRegistro(registroClientes1, {nombre: 'sadsa'});
+cliente1.modPaciente(paciente1, {especie: 'perro'});
+vet2.modRegistro(registroVeterinarias, {direccion: 'otra calle'});
+prov2.modRegistro(registroProveedores, {telefono: 123612932180937});
+prov1.modRegistro(registroProveedores, {telefono: 2180937});
 
+//Dada de baja
+cliente1.darBajaPaciente(paciente1);
+cliente2.darBaja(registroClientes2);
+vet2.darBaja(registroVeterinarias);
+
+//Listas
+RedVets.mostrarVeterinarias();
+RedVets.mostrarProveedores();
+console.log('SUCURSAL 1');
+vet1.mostrarClientes();
+vet1.mostrarPacientes();
+console.log('SUCURSAL 2:');
+vet2.mostrarClientes();
+vet2.mostrarPacientes();
+console.log(`IDs registrados: ${registroID}`);
 
 // cliente1.visitarVeterinaria();
 // cliente1.getVisitas();

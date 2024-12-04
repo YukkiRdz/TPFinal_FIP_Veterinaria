@@ -1,6 +1,4 @@
 import { Registro } from "./Interface";
-import { RedVeterinaria } from "./RedVeterinaria";
-import { Proveedor } from "./Proveedor";
 import { Cliente } from "./Cliente";
 import { Paciente } from "./Paciente";
 
@@ -36,11 +34,11 @@ export class Veterinaria implements Registro<Veterinaria> {
   }
 
   public getClientes(): Cliente[] {
-    return this.clientes;
+    return this.clientes || [];
   }
 
   public getPacientes(): Paciente[] {
-    return this.pacientes;
+    return this.pacientes || [];
   }
 
   //setters
@@ -111,7 +109,7 @@ darBaja(registroVeterinarias: Veterinaria[]): void {
 }
 
 //Modificar un registro;
-modRegistro(registroVeterinarias: Veterinaria[], datosAModificar: { nombre?: string; direccion?: string; telefono?: number}): void {
+modRegistro(registroVeterinarias: Veterinaria[], datosAModificar: { nombre?: string; direccion?: string; telefono?: number; }): void {
   //verifica si la veterinaria esta registrado o no;
   const indexVeterinariaRegistrada = registroVeterinarias.findIndex(veterinaria => veterinaria.getID() === this.ID);
   //si el veterinaria esta registrado, modifica los datos ingresados;
@@ -120,19 +118,45 @@ modRegistro(registroVeterinarias: Veterinaria[], datosAModificar: { nombre?: str
       if (datosAModificar.nombre) veterinariaMod.setNombre(datosAModificar.nombre);
       if (datosAModificar.direccion) veterinariaMod.setDireccion(datosAModificar.direccion);
       if (datosAModificar.telefono) veterinariaMod.setTelefono(datosAModificar.telefono);
-      console.log(`La veterinaria ${this.nombre} con ID ${this.ID} ha sido modificada exitosamente. Sus nuevos datos son: \n Nombre: ${veterinariaMod.getNombre()}.\nDireccion: ${veterinariaMod.getDireccion()}.\nTelefono: ${veterinariaMod.getTelefono()}.`);
+      console.log(`La veterinaria con ID ${this.ID} ha sido modificada exitosamente. Sus nuevos datos son: \n Nombre: ${veterinariaMod.getNombre()}.\nDireccion: ${veterinariaMod.getDireccion()}.\nTelefono: ${veterinariaMod.getTelefono()}.`);
   } else {
-      console.error(`La veterinaria con ID ${this.ID} no ha sido encontrado.`);
+      console.error(`La veterinaria no ha sido encontrado.`);
   }
 }
 
-  mostrarClientes(): void {
-    console.log("Lista de Clientes:");
-    this.clientes.forEach((cliente) => console.log(cliente));
+public mostrarClientes(): void {
+  if (this.clientes.length === 0) {
+    console.log("No hay clientes registrados.");
+    return;
   }
+  console.log("Lista de Clientes:");
+  this.clientes.forEach((cliente, index) => {
+  console.log(`${index + 1}. Cliente: ${cliente.getNombre()}, Teléfono: ${cliente.getTelefono()}, ID: ${cliente.getID()}`);
+  });
+}
 
-  mostrarPacientes(): void {
-    console.log("Lista de Pacientes:");
-    this.pacientes.forEach((paciente) => console.log(paciente));
+public actualizarPacientes(): void {
+  // Itera sobre los clientes y agrega sus pacientes al array de pacientes.
+  this.clientes.forEach(cliente => {
+      cliente.getPacientes().forEach(paciente => {
+        //evita que se dupliquen los pacientes.
+        if (!this.pacientes.find(p => p.getID() === paciente.getID())) {
+          this.pacientes.push(paciente);
+        }
+      });
+  });
+}
+
+
+public mostrarPacientes(): void {
+  this.actualizarPacientes();
+  if (this.pacientes.length === 0) {
+    console.log("No hay pacientes registrados.");
+    return;
   }
+  console.log("Lista de Pacientes:");
+  this.pacientes.forEach((paciente, index) => {
+  console.log(`${index + 1}. Paciente: ${paciente.getNombre()}, ClienteID: ${paciente.getID()}`);
+  });
+}
 }
