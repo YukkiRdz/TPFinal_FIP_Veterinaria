@@ -122,7 +122,7 @@ modRegistro(registroVeterinarias: Veterinaria[], datosAModificar: { nombre?: str
       if (datosAModificar.telefono) veterinariaMod.setTelefono(datosAModificar.telefono);
       console.log(`La veterinaria con ID ${this.ID} ha sido modificada exitosamente. Sus nuevos datos son: \n Nombre: ${veterinariaMod.getNombre()}.\nDireccion: ${veterinariaMod.getDireccion()}.\nTelefono: ${veterinariaMod.getTelefono()}.`);
   } else {
-      console.error(`La veterinaria con ID ${this.ID} no ha sido encontrado.`);
+      console.error(`La veterinaria no ha sido encontrado.`);
   }
 }
 
