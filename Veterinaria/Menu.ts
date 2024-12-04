@@ -50,6 +50,7 @@ class MenuConsola {
       case "5":
         console.log("Saliendo del programa...");
         this.rl.close();
+        Process.exit(0); // Sirve para cerrar el programa o algo asi ;)
         break;
       default:
         console.log("Esta opción no es válida, por favor intente de nuevo.");
