@@ -120,7 +120,7 @@ modRegistro(registroVeterinarias: Veterinaria[], datosAModificar: { nombre?: str
       if (datosAModificar.nombre) veterinariaMod.setNombre(datosAModificar.nombre);
       if (datosAModificar.direccion) veterinariaMod.setDireccion(datosAModificar.direccion);
       if (datosAModificar.telefono) veterinariaMod.setTelefono(datosAModificar.telefono);
-      console.log(`La veterinaria ${this.nombre} con ID ${this.ID} ha sido modificada exitosamente. Sus nuevos datos son: \n Nombre: ${veterinariaMod.getNombre()}.\nDireccion: ${veterinariaMod.getDireccion()}.\nTelefono: ${veterinariaMod.getTelefono()}.`);
+      console.log(`La veterinaria con ID ${this.ID} ha sido modificada exitosamente. Sus nuevos datos son: \n Nombre: ${veterinariaMod.getNombre()}.\nDireccion: ${veterinariaMod.getDireccion()}.\nTelefono: ${veterinariaMod.getTelefono()}.`);
   } else {
       console.error(`La veterinaria con ID ${this.ID} no ha sido encontrado.`);
   }
@@ -129,12 +129,12 @@ modRegistro(registroVeterinarias: Veterinaria[], datosAModificar: { nombre?: str
 public mostrarClientes(): void {
   if (this.clientes.length === 0) {
     console.log("No hay clientes registrados.");
-  } else {
-    console.log("Lista de Clientes:");
-    this.clientes.forEach((cliente, index) => {
-      console.log(`${index + 1}. Cliente: ${cliente.getNombre()}, Teléfono: ${cliente.getTelefono()}`);
-    });
+    return;
   }
+  console.log("Lista de Clientes:");
+  this.clientes.forEach((cliente, index) => {
+  console.log(`${index + 1}. Cliente: ${cliente.getNombre()}, Teléfono: ${cliente.getTelefono()}, ID: ${cliente.getID()}`);
+  });
 }
 
 public actualizarPacientes(): void {
@@ -147,8 +147,6 @@ public actualizarPacientes(): void {
         }
       });
   });
-
-  console.log("Pacientes actualizados exitosamente en la veterinaria.");
 }
 
 
@@ -156,11 +154,11 @@ public mostrarPacientes(): void {
   this.actualizarPacientes();
   if (this.pacientes.length === 0) {
     console.log("No hay pacientes registrados.");
-  } else {
-    console.log("Lista de Pacientes:");
-    this.pacientes.forEach((paciente, index) => {
-      console.log(`${index + 1}. Paciente: ${paciente.getNombre()}, Cliente ${paciente.getID()}`);
-    });
+    return;
   }
+  console.log("Lista de Pacientes:");
+  this.pacientes.forEach((paciente, index) => {
+  console.log(`${index + 1}. Paciente: ${paciente.getNombre()}, ClienteID: ${paciente.getID()}`);
+  });
 }
 }
