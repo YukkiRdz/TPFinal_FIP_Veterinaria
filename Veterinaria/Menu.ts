@@ -106,19 +106,29 @@ class MenuConsola {
   }
 
   // === FUNCIONES PARA MOSTRAR VETERINARIAS ===
-  private mostrarVeterinarias(): void {
-    console.log("\n===== Lista de Veterinarias =====");
-    const veterinarias = redVeterinaria.listadoVeterinarias();
-    if (veterinarias.length === 0) {
-      console.log("No hay veterinarias registradas.");
-    } else {
-      veterinarias.forEach((vet, index) => {
-        // Muestra la lista de veterinarias registradas
-        console.log(`${index + 1}. ${vet["nombre"]} - ID: ${vet["ID"]}`);
-      });
-      this.seleccionarVeterinaria(veterinarias); // Permite seleccionar una veterinaria para gestionar
-    }
+private mostrarVeterinarias(): void {
+  console.log("\n===== Lista de Veterinarias =====");
+  const veterinarias = redVeterinaria.listadoVeterinarias();
+  if (veterinarias.length === 0) {
+    console.log("No hay veterinarias registradas.");
+  } else {
+    veterinarias.forEach((vet, index) => {
+      // Muestra la lista de veterinarias registradas
+      console.log(`${index + 1}. ${vet["nombre"]} - ID: ${vet["ID"]}`);
+    });
+    this.seleccionarVeterinaria(veterinarias); // Permite seleccionar una veterinaria para gestionar
   }
+
+  // Opción para volver al menú
+  this.rl.question("\nPresione 'M' para volver al menú principal: ", (input) => {
+    if (input.trim().toUpperCase() === 'M') {
+      this.volverAlMenu(); // Vuelve al menú principal
+    } else {
+      console.log("Opción no válida. Volviendo al menú principal.");
+      this.volverAlMenu(); // Regresa al menú principal en caso de error
+    }
+  });
+}
 
   // Permite seleccionar una veterinaria de la lista
   private seleccionarVeterinaria(veterinarias: any[]): void {
