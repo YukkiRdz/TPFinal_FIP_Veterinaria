@@ -146,78 +146,140 @@ private mostrarVeterinarias(): void {
     );
   }
 
-  // === MENÚ DE OPCIONES PARA UNA VETERINARIA ===
-  private mostrarMenuVeterinaria(veterinaria: any): void {
-    console.log(`
-    ===== MENÚ VETERINARIA: ${veterinaria.nombre} =====
-    1. Registrar clientes
-    2. Mostrar clientes
-    3. Mostrar pacientes
-    4. Modificar datos de la veterinaria
-    5. Dar de baja veterinaria
-    6. Atrás (menú principal)
-    `);
+// === MENÚ DE OPCIONES PARA UNA VETERINARIA ===
+private mostrarMenuVeterinaria(veterinaria: any): void {
+  console.log(`
+  ===== MENÚ VETERINARIA: ${veterinaria.nombre} =====
+  1. Registrar clientes
+  2. Mostrar clientes
+  3. Mostrar pacientes
+  4. Modificar datos de la veterinaria
+  5. Dar de baja veterinaria
+  6. Atrás (volver a lista de veterinarias)
+  `);
 
-    // Captura la opción seleccionada en el menú de la veterinaria
-    this.rl.question("Seleccione una opción: ", (opcion) => {
-      this.procesarOpcionVeterinaria(opcion, veterinaria);
+  this.rl.question("Seleccione una opción: ", (opcion) => {
+    this.procesarOpcionVeterinaria(opcion, veterinaria);
+  });
+}
+
+// Procesa las opciones del menú veterinaria
+private procesarOpcionVeterinaria(opcion: string, veterinaria: any): void {
+  switch (opcion.trim()) {
+    case "1":
+      this.registrarCliente(veterinaria);
+      break;
+    case "2":
+      this.mostrarClientes(veterinaria);
+      break;
+    case "3":
+      this.mostrarPacientes(veterinaria);
+      break;
+    case "4":
+      this.modificarDatosVeterinaria(veterinaria);
+      break;
+    case "5":
+      this.darDeBajaVeterinaria(veterinaria);
+      break;
+    case "6":
+      this.mostrarVeterinarias(); // Volver a la lista de veterinarias
+      break;
+    default:
+      console.log("Opción no válida. Por favor intente de nuevo.");
+      this.mostrarMenuVeterinaria(veterinaria);
+      break;
+  }
+}
+
+// === FUNCIONES PARA CLIENTES ===
+private registrarCliente(veterinaria: any): void {
+  console.log("\n===== Registrar Cliente =====");
+  this.rl.question("Ingrese el nombre del cliente: ", (nombre) => {
+    this.rl.question("Ingrese el teléfono del cliente: ", (telefono) => {
+      const cliente = new Cliente(nombre, parseInt(telefono), veterinaria);
+      cliente.registrarse();
+      console.log("Cliente registrado con éxito.");
+      this.mostrarMenuClientes(veterinaria); // Vuelve al menú de clientes
+    });
+  });
+}
+
+private mostrarClientes(veterinaria: any): void {
+  console.log("\n===== Lista de Clientes =====");
+  const clientes = veterinaria.listadoClientes();
+  if (clientes.length === 0) {
+    console.log("No hay clientes registrados.");
+    this.mostrarMenuVeterinaria(veterinaria);
+  } else {
+    clientes.forEach((cli, index) => {
+      console.log(`${index + 1}. ${cli["nombre"]} - ID: ${cli["ID"]}`);
+    });
+
+    console.log(`${clientes.length + 1}. Volver atrás`);
+    this.rl.question("Seleccione un cliente o 'Volver atrás': ", (opcion) => {
+      const index = parseInt(opcion) - 1;
+      if (index >= 0 && index < clientes.length) {
+        this.mostrarMenuCliente(clientes[index], veterinaria); // Menú del cliente seleccionado
+      } else if (index === clientes.length) {
+        this.mostrarMenuVeterinaria(veterinaria); // Vuelve al menú de la veterinaria
+      } else {
+        console.log("Opción no válida.");
+        this.mostrarClientes(veterinaria);
+      }
     });
   }
+}
 
-  // Procesa las opciones del menú veterinaria
-  private procesarOpcionVeterinaria(opcion: string, veterinaria: any): void {
+// === MENÚ INDIVIDUAL DEL CLIENTE ===
+private mostrarMenuCliente(cliente: any, veterinaria: any): void {
+  console.log(`
+  ===== MENÚ CLIENTE: ${cliente.nombre} =====
+  1. Mostrar información
+  2. Modificar datos
+  3. Dar de baja cliente
+  4. Atrás (volver a lista de clientes)
+  `);
+
+  this.rl.question("Seleccione una opción: ", (opcion) => {
     switch (opcion.trim()) {
       case "1":
-        this.registrarCliente(veterinaria); // Registra un nuevo cliente
+        console.log(`Nombre: ${cliente.nombre}, Teléfono: ${cliente.telefono}`);
+        this.mostrarMenuCliente(cliente, veterinaria);
         break;
       case "2":
-        this.mostrarClientes(veterinaria); // Lista clientes registrados
+        this.modificarDatosCliente(cliente, veterinaria);
         break;
       case "3":
-        this.mostrarPacientes(veterinaria); // Lista pacientes registrados
+        this.darDeBajaCliente(cliente, veterinaria);
         break;
       case "4":
-        this.modificarDatosVeterinaria(veterinaria); // Permite modificar los datos de la veterinaria
-        break;
-      case "5":
-        this.darDeBajaVeterinaria(veterinaria); // Elimina la veterinaria de la red
-        break;
-      case "6":
-        this.volverAlMenu(); // Vuelve al menú principal
+        this.mostrarClientes(veterinaria); // Vuelve a la lista de clientes
         break;
       default:
-        console.log("Opción no válida. Por favor intente de nuevo.");
-        this.mostrarMenuVeterinaria(veterinaria); // Vuelve al menú de la veterinaria
+        console.log("Opción no válida.");
+        this.mostrarMenuCliente(cliente, veterinaria);
         break;
     }
-  }
+  });
+}
 
-  // === FUNCIONES PARA CLIENTES ===
-  private registrarCliente(veterinaria: any): void {
-    console.log("\n===== Registrar Cliente =====");
-    // Solicita datos del cliente
-    this.rl.question("Ingrese el nombre del cliente: ", (nombre) => {
-      this.rl.question("Ingrese el teléfono del cliente: ", (telefono) => {
-        const cliente = new Cliente(nombre, parseInt(telefono), veterinaria);
-        cliente.registrarse();
-        console.log("Cliente registrado con éxito.");
-        this.volverAlMenuVeterinaria(veterinaria); // Vuelve al menú de la veterinaria
-      });
+// === MODIFICAR Y DAR DE BAJA CLIENTES ===
+private modificarDatosCliente(cliente: any, veterinaria: any): void {
+  this.rl.question("Nuevo nombre del cliente: ", (nombre) => {
+    this.rl.question("Nuevo teléfono del cliente: ", (telefono) => {
+      cliente.nombre = nombre;
+      cliente.telefono = parseInt(telefono);
+      console.log("Datos del cliente actualizados con éxito.");
+      this.mostrarMenuCliente(cliente, veterinaria);
     });
-  }
+  });
+}
 
-  private mostrarClientes(veterinaria: any): void {
-    console.log("\n===== Lista de Clientes =====");
-    const clientes = veterinaria.listadoClientes();
-    if (clientes.length === 0) {
-      console.log("No hay clientes registrados.");
-    } else {
-      clientes.forEach((cli, index) => {
-        console.log(`${index + 1}. ${cli["nombre"]} - ID: ${cli["ID"]}`);
-      });
-      this.seleccionarCliente(veterinaria, clientes); // Permite gestionar un cliente seleccionado
-    }
-  }
+private darDeBajaCliente(cliente: any, veterinaria: any): void {
+  veterinaria.eliminarCliente(cliente);
+  console.log(`Cliente ${cliente.nombre} eliminado con éxito.`);
+  this.mostrarClientes(veterinaria); // Vuelve a la lista de clientes
+}
 
   // === Funciones para pacientes y otras gestiones omitidas por espacio ===
 
