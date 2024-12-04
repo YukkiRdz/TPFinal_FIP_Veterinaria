@@ -1,0 +1,11 @@
+{
+    "compilerOptions": {
+      "types": ["node"],
+      "target": "es2015",         // Cambia a ES2015 o superior
+      "lib": ["es2015", "dom"],   // Incluye las bibliotecas necesarias
+      "module": "commonjs",
+      "strict": false,
+      "esModuleInterop": true
+    }
+  }
+  

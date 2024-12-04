@@ -34,11 +34,11 @@ export class Veterinaria implements Registro<Veterinaria> {
   }
 
   public getClientes(): Cliente[] {
-    return this.clientes;
+    return this.clientes || [];
   }
 
   public getPacientes(): Paciente[] {
-    return this.pacientes;
+    return this.pacientes || [];
   }
 
   //setters
@@ -109,7 +109,7 @@ darBaja(registroVeterinarias: Veterinaria[]): void {
 }
 
 //Modificar un registro;
-modRegistro(registroVeterinarias: Veterinaria[], datosAModificar: { nombre?: string; direccion?: string; telefono?: number}): void {
+modRegistro(registroVeterinarias: Veterinaria[], datosAModificar: { nombre?: string; direccion?: string; telefono?: number; }): void {
   //verifica si la veterinaria esta registrado o no;
   const indexVeterinariaRegistrada = registroVeterinarias.findIndex(veterinaria => veterinaria.getID() === this.ID);
   //si el veterinaria esta registrado, modifica los datos ingresados;
