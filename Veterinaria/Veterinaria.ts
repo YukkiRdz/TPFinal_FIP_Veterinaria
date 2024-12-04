@@ -1,6 +1,4 @@
 import { Registro } from "./Interface";
-import { RedVeterinaria } from "./RedVeterinaria";
-import { Proveedor } from "./Proveedor";
 import { Cliente } from "./Cliente";
 import { Paciente } from "./Paciente";
 
