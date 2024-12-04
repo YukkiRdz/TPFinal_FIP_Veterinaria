@@ -9,7 +9,6 @@ export class Paciente {
     }
 
     //Getters
-
     public getNombre(): string {
         return this.nombre;
     }
@@ -23,7 +22,6 @@ export class Paciente {
     }
 
     //Setters
-
     public setNombre(nombre: string): void {
         if(!nombre){
             throw new Error('Nombre invalido');
