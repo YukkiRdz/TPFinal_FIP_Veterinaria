@@ -140,6 +140,7 @@ function menuVeterinaria(veterinariaSeleccionada: Veterinaria) {
         break;
         case 5:
             veterinariaSeleccionada.darBaja(red.listadoVeterinarias());
+            mainMenu();
         break;
         case 6:
         console.log('Volviendo a la gestion de veterinarias...');
@@ -212,6 +213,7 @@ function menuProveedor(proveedorSeleccionado: Proveedor) {
         break;
         case 2:
             proveedorSeleccionado.darBaja(red.listadoProveedores());
+            mainMenu();
         break;
         case 3:
         console.log('Volviendo a la gestion de proveedores...');
