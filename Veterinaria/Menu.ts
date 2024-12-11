@@ -67,7 +67,7 @@ function menuGestionDeVeterinarias() {
 
         console.log('===== GESTIÓN DE VETERINARIAS ====');
         veterinarias.forEach((veterinaria, index) => {
-            console.log(`${index + 1}. ${veterinaria.getNombre().toUpperCase}, Dirección: ${veterinaria.getDireccion()}, Teléfono: ${veterinaria.getTelefono()}, ID: ${veterinaria.getID()}`);
+            console.log(`${index + 1}. ${veterinaria.getNombre().toUpperCase()}, Dirección: ${veterinaria.getDireccion()}, Teléfono: ${veterinaria.getTelefono()}, ID: ${veterinaria.getID()}`);
         });
         console.log(`${veterinarias.length + 1}. Volver al menú principal`);
         
@@ -90,7 +90,7 @@ function menuVeterinaria(veterinariaSeleccionada: Veterinaria) {
     let opcion: number;
     do {
         console.log(`
-            ===== VETERINARIA '${veterinariaSeleccionada.getNombre()}' =====
+            ===== VETERINARIA '${veterinariaSeleccionada.getNombre().toUpperCase()}' =====
                 1. Registrar clientes
                 2. Mostrar clientes
                 3. Mostrar pacientes
@@ -110,7 +110,6 @@ function menuVeterinaria(veterinariaSeleccionada: Veterinaria) {
             nuevoCliente.registrarse(registroDeClientes, registroDeID);
         break;
         case 2:
-            veterinariaSeleccionada.mostrarClientes();
             menuGestionDeClientes(veterinariaSeleccionada);
         break;
         case 3:
@@ -140,6 +139,7 @@ function menuVeterinaria(veterinariaSeleccionada: Veterinaria) {
         break;
         case 5:
             veterinariaSeleccionada.darBaja(red.listadoVeterinarias());
+            mainMenu();
         break;
         case 6:
         console.log('Volviendo a la gestion de veterinarias...');
@@ -186,7 +186,7 @@ function menuProveedor(proveedorSeleccionado: Proveedor) {
     let opcion: number;
     do {
         console.log(`
-            ===== PROVEEDOR '${proveedorSeleccionado.getNombre()}' =====
+            ===== PROVEEDOR '${proveedorSeleccionado.getNombre().toUpperCase()}' =====
                 1. Modificar datos del proveedor
                 2. Dar de baja proveedor
                 3. Atrás (volver a la lista de proveedores)
@@ -212,6 +212,7 @@ function menuProveedor(proveedorSeleccionado: Proveedor) {
         break;
         case 2:
             proveedorSeleccionado.darBaja(red.listadoProveedores());
+            mainMenu();
         break;
         case 3:
         console.log('Volviendo a la gestion de proveedores...');
@@ -258,7 +259,7 @@ function menuCliente(clienteSeleccionado: Cliente, veterinariaSeleccionada: Vete
     let opcion: number;
     do {
         console.log(`
-            ===== CLIENTE '${clienteSeleccionado.getNombre()}' =====
+            ===== CLIENTE '${clienteSeleccionado.getNombre().toUpperCase()}' =====
                 1. Mostrar información
                 2. Modificar datos
                 3. Dar de baja cliente
@@ -270,7 +271,7 @@ function menuCliente(clienteSeleccionado: Cliente, veterinariaSeleccionada: Vete
 
     switch (opcion) {
         case 1:
-            console.log(clienteSeleccionado);
+            console.log(clienteSeleccionado.toString());
         break;
         case 2:
             let registroDeClientes = veterinariaSeleccionada.getClientes();
@@ -298,7 +299,6 @@ function menuCliente(clienteSeleccionado: Cliente, veterinariaSeleccionada: Vete
             clienteSeleccionado.registrarPaciente(nuevoPaciente);
         break;
         case 5:
-            clienteSeleccionado.mostrarPacientes();
             menuGestionDePacientes(clienteSeleccionado, veterinariaSeleccionada);
         break;
         case 6:
@@ -323,7 +323,7 @@ function menuGestionDePacientes(clienteSeleccionado: Cliente ,veterinariaSelecci
 
         console.log('===== GESTIÓN DE PACIENTES ====');
         pacientes.forEach((pacientes, index) => {
-            console.log(`${index + 1}. ${pacientes.getNombre()}`);
+            console.log(`${index + 1}. ${pacientes.getNombre().toUpperCase()}`);
         });
         console.log(`${pacientes.length + 1}. Volver al menú principal`);
         
@@ -346,7 +346,7 @@ function menuPaciente(pacienteSeleccionado: Paciente, veterinariaSeleccionada: V
     let opcion: number;
     do {
         console.log(`
-            ===== PACIENTE '${pacienteSeleccionado.getNombre()}' =====
+            ===== PACIENTE '${pacienteSeleccionado.getNombre().toUpperCase()}' =====
                 1. Mostrar información
                 2. Modificar datos del paciente
                 3. Dar de baja al paciente
@@ -374,6 +374,7 @@ function menuPaciente(pacienteSeleccionado: Paciente, veterinariaSeleccionada: V
         break;
         case 3:
             clienteSeleccionado.darBajaPaciente(pacienteSeleccionado);
+            menuCliente(clienteSeleccionado, veterinariaSeleccionada);
         break;
         case 4:
         console.log('Volviendo a la gestion de pacientes...');
