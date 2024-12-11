@@ -11,7 +11,7 @@ export class Proveedor implements Registro<Proveedor> {
   }
 
   //getters
-  public getID(): number{
+  public getID(): number | null {
     return this.ID;
   }
 

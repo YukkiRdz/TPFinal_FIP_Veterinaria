@@ -29,7 +29,7 @@ export class Veterinaria implements Registro<Veterinaria> {
     return this.telefono;
   }
 
-  public getID(): number {
+  public getID(): number | null {
     return this.ID;
   }
 
@@ -118,7 +118,7 @@ modRegistro(registroVeterinarias: Veterinaria[], datosAModificar: { nombre?: str
       if (datosAModificar.nombre) veterinariaMod.setNombre(datosAModificar.nombre);
       if (datosAModificar.direccion) veterinariaMod.setDireccion(datosAModificar.direccion);
       if (datosAModificar.telefono) veterinariaMod.setTelefono(datosAModificar.telefono);
-      console.log(`La veterinaria con ID ${this.ID} ha sido modificada exitosamente. Sus nuevos datos son: \n Nombre: ${veterinariaMod.getNombre()}.\nDireccion: ${veterinariaMod.getDireccion()}.\nTelefono: ${veterinariaMod.getTelefono()}.`);
+      console.log(`La veterinaria con ID ${this.ID} ha sido modificada exitosamente. Sus nuevos datos son:\nNombre: ${veterinariaMod.getNombre()}.\nDireccion: ${veterinariaMod.getDireccion()}.\nTelefono: ${veterinariaMod.getTelefono()}.`);
   } else {
       console.error(`La veterinaria no ha sido encontrado.`);
   }
@@ -156,7 +156,7 @@ public mostrarPacientes(): void {
   }
   console.log("Lista de Pacientes:");
   this.pacientes.forEach((paciente, index) => {
-  console.log(`${index + 1}. Paciente: ${paciente.getNombre()}, ClienteID: ${paciente.getID()}`);
+  console.log(`${index + 1}. Paciente: ${paciente.getNombre()}, Especie: ${paciente.getEspecie()}, ClienteID: ${paciente.getID()}`);
   });
 }
 }

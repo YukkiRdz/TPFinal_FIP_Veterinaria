@@ -3,7 +3,6 @@ import { Veterinaria } from "./Veterinaria";
 import { Proveedor } from "./Proveedor";
 import { Cliente } from "./Cliente";
 import { Paciente } from "./Paciente";
-import { log } from "console";
 
 //creacion de la red de veterinarias;
 const RedVets = new RedVeterinaria('OlavarriaFip');
@@ -45,12 +44,18 @@ prov1.registrarse(registroProveedores, registroID);
 let registroClientes1: Cliente[] = vet1.getClientes();
 let registroClientes2: Cliente[] = vet2.getClientes();
 
+
 //Registro de clientes;
 cliente1.registrarse(registroClientes1, registroID);
 cliente2.registrarse(registroClientes2, registroID);
 
 //Registro de paciente;
 cliente1.registrarPaciente(paciente1);
+cliente1.registrarPaciente(pac2);
+cliente1.getPacientes();
+vet1.mostrarPacientes();
+
+console.log(cliente1);
 
 //Modificacion de registros
 cliente1.modRegistro(registroClientes1, {nombre: 'sadsa'});
@@ -75,13 +80,14 @@ vet2.mostrarClientes();
 vet2.mostrarPacientes();
 console.log(`IDs registrados: ${registroID}`);
 
-// cliente1.visitarVeterinaria();
-// cliente1.getVisitas();
-// console.log(cliente1);
+//VIP
+cliente1.visitarVeterinaria();
+cliente1.getVisitas();
+console.log(cliente1);
 
-// cliente1.visitarVeterinaria();
-// cliente1.visitarVeterinaria();
-// cliente1.visitarVeterinaria();
-// console.log(cliente1);
-// cliente1.visitarVeterinaria();
-// console.log(cliente1);
+cliente1.visitarVeterinaria();
+cliente1.visitarVeterinaria();
+cliente1.visitarVeterinaria();
+console.log(cliente1);
+cliente1.visitarVeterinaria();
+console.log(cliente1);

@@ -137,14 +137,41 @@ export class Cliente implements Registro<Cliente>  {
         const pacienteRegistrado = this.pacientes.find(paciente => paciente.getNombre() === paciente.getNombre() && paciente.getEspecie() === paciente.getEspecie());
         //si el paciente no fue registrado;
         if (!pacienteRegistrado) {
+            if (this.ID !== null) {
             paciente.setID(this.ID); // Asignamos el ID del cliente al paciente
             this.pacientes.push(paciente);
+            console.log(this.pacientes);
             console.log(`El paciente ${paciente.getNombre()} ha sido registrado bajo el cliente ${this.nombre}.`);
-        } else {
+            } else {
             console.error(`El paciente ${paciente.getNombre()} ya está registrado bajo el cliente ${this.nombre}.`);
+            }
         }
     }
 
+    public actualizarPacientes(): void {
+        // Itera sobre los clientes y agrega sus pacientes al array de pacientes.
+        this.pacientes.forEach(() => {
+            this.getPacientes().forEach(paciente => {
+                //evita que se dupliquen los pacientes.
+                if (!this.pacientes.find(p => p.getID() === paciente.getID())) {
+                this.pacientes.push(paciente);
+                }
+            });
+        });
+        }
+    
+    public mostrarPacientes(): void {
+        this.actualizarPacientes();
+        if (this.pacientes.length === 0) {
+            console.log("No hay pacientes registrados.");
+            return;
+        }
+        console.log("Lista de Pacientes:");
+        this.pacientes.forEach((paciente, index) => {
+        console.log(`${index + 1}. Paciente: ${paciente.getNombre()}, Especie: ${paciente.getEspecie()}, Cliente: ${this.nombre}, ID: ${this.ID}`);
+        });
+    }
+    
     darBajaPaciente(paciente: Paciente): void {
         //verifica si el paciente esta registrado o no;
         const pacienteRegistrado = this.pacientes.findIndex(paciente => paciente.getID() === paciente.getID());
