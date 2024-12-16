@@ -37,6 +37,7 @@ export class Paciente {
             this.especie = especie;
             console.log('Su mascota es un perro');
         } else {
+            this.especie = 'exótico'
             console.log('Su mascota es un animal exotico');
         }
     }

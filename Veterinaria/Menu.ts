@@ -6,7 +6,7 @@ import { Proveedor } from './Proveedor';
 import { Cliente } from './Cliente';
 import { Paciente } from './Paciente';
 
-
+// let corriendoPrograma: boolean = true;
 let red = new RedVeterinaria('OLAFIP')
 
 function mainMenu() {
@@ -22,35 +22,37 @@ function mainMenu() {
             `);
         opcion = parseInt(readlineSync.question('Seleccione una opcion: '));
 
-    switch (opcion) {
-        case 1:
-            let registroDeVeterinarias = red.listadoVeterinarias()
-            let registroDeID = red.listadoID()
-            let vetNombre = readlineSync.question('Ingrese el nombre: ');
-            let vetDireccion = readlineSync.question('Ingrese la direccion: ');
-            let vetTelefono = readlineSync.questionInt('Ingrese el telefono: ');
-            const vet = new Veterinaria(vetNombre, vetDireccion, vetTelefono);
-            vet.registrarse(registroDeVeterinarias, registroDeID);
-        break;
-        case 2:
-            let registroDeProveedores = red.listadoProveedores()
-            let provNombre = readlineSync.question('Ingrese el nombre: ');
-            let provTelefono = readlineSync.questionInt('Ingrese el telefono: ');
-            const prov = new Proveedor(provNombre, provTelefono);
-            prov.registrarse(registroDeProveedores, red.listadoID());
-        break
-        case 3:
-            menuGestionDeVeterinarias();
-        break;
-        case 4:
-            menuGestionDeProveedores();
-        break;
-        case 5:
-        console.log('Saliendo del programa...');
-        return;
-        default:
-        console.error('Opción inválida. Vuelva a intentarlo.');
-    }3
+        switch (opcion) {
+            case 1:
+                let registroDeVeterinarias = red.listadoVeterinarias()
+                let registroDeID = red.listadoID()
+                let vetNombre = readlineSync.question('Ingrese el nombre: ');
+                let vetDireccion = readlineSync.question('Ingrese la direccion: ');
+                let vetTelefono = readlineSync.questionInt('Ingrese el telefono: ');
+                const vet = new Veterinaria(vetNombre, vetDireccion, vetTelefono);
+                vet.registrarse(registroDeVeterinarias, registroDeID);
+            break;
+            case 2:
+                let registroDeProveedores = red.listadoProveedores()
+                let provNombre = readlineSync.question('Ingrese el nombre: ');
+                let provTelefono = readlineSync.questionInt('Ingrese el telefono: ');
+                const prov = new Proveedor(provNombre, provTelefono);
+                prov.registrarse(registroDeProveedores, red.listadoID());
+            break
+            case 3:
+                menuGestionDeVeterinarias();
+            break;
+            case 4:
+                menuGestionDeProveedores();
+            break;
+            case 5:
+            console.log('Saliendo del programa...');
+            process.exit(); //cierra el programa
+            // corriendoPrograma = false;
+            break;
+            default:
+            console.error('Opción inválida. Vuelva a intentarlo.');
+        }
     } while (opcion !== 5);
 }
 
@@ -80,10 +82,14 @@ function menuGestionDeVeterinarias() {
         } else if (opcion === veterinarias.length + 1) {
             console.log("Volviendo al menú principal...");
             mainMenu();
+        } else if (opcion === veterinarias.length + 2) {
+            console.log('Saliendo del programa...');
+            // corriendoPrograma = false;
+            process.exit();
         } else {
             console.log("Opción inválida. Inténtelo de nuevo.");
         }
-    } while (opcion !== red.listadoVeterinarias().length + 1);
+    } while (opcion !== red.listadoVeterinarias.length + 1 && opcion !== red.listadoVeterinarias.length + 2);
 }
 
 function menuVeterinaria(veterinariaSeleccionada: Veterinaria) {
@@ -97,6 +103,7 @@ function menuVeterinaria(veterinariaSeleccionada: Veterinaria) {
                 4. Modificar datos de la veterinaria
                 5. Dar de baja veterinaria
                 6. Atrás (volver a la lista de veterinarias)
+                7. Salir
             `);
         opcion = parseInt(readlineSync.question('Seleccione una opcion: '));
 
@@ -144,10 +151,15 @@ function menuVeterinaria(veterinariaSeleccionada: Veterinaria) {
         case 6:
         console.log('Volviendo a la gestion de veterinarias...');
         return;
+        case 7:
+        console.log('Saliendo del programa...');
+        // corriendoPrograma = false;
+        process.exit();
+        break;
         default:
         console.error('Opción inválida. Vuelva a intentarlo.');
     }
-    } while (opcion !== 6);
+    } while (opcion !== 6 && opcion !== 7);
 }
 
 function menuGestionDeProveedores(){
@@ -176,10 +188,14 @@ function menuGestionDeProveedores(){
         } else if (opcion === proveedores.length + 1) {
             console.log("Volviendo al menú principal...");
             mainMenu();
+        } else if (opcion === proveedores.length + 2) {
+            console.log('Saliendo del programa...');
+            // corriendoPrograma = false;
+            process.exit();
         } else {
             console.log("Opción inválida. Inténtelo de nuevo.");
         }
-    } while (opcion !== red.listadoProveedores().length + 1);
+    } while (opcion !== red.listadoProveedores.length + 1 && opcion !== red.listadoProveedores.length + 2);
 }
 
 function menuProveedor(proveedorSeleccionado: Proveedor) {
@@ -190,6 +206,7 @@ function menuProveedor(proveedorSeleccionado: Proveedor) {
                 1. Modificar datos del proveedor
                 2. Dar de baja proveedor
                 3. Atrás (volver a la lista de proveedores)
+                4. Salir
             `);
         opcion = parseInt(readlineSync.question('Seleccione una opcion: '));
 
@@ -217,10 +234,15 @@ function menuProveedor(proveedorSeleccionado: Proveedor) {
         case 3:
         console.log('Volviendo a la gestion de proveedores...');
         return;
+        case 4:
+            console.log('Saliendo del programa...');
+            // corriendoPrograma = false;
+            process.exit();
+        break;
         default:
         console.error('Opción inválida. Vuelva a intentarlo.');
     };
-    } while (opcion !== 3);
+    } while (opcion !== 3 && opcion !== 4);
 }
 
 function menuGestionDeClientes(veterinariaSeleccionada: Veterinaria) {
@@ -238,7 +260,7 @@ function menuGestionDeClientes(veterinariaSeleccionada: Veterinaria) {
         clientes.forEach((clientes, index) => {
             console.log(`${index + 1}. ${clientes.getNombre()}`);
         });
-        console.log(`${clientes.length + 1}. Volver al menú principal`);
+        console.log(`${clientes.length + 1}. Volver al menú anterior`);
         
         opcion = parseInt(readlineSync.question('Seleccione un cliente para gestionar: '));
 
@@ -247,12 +269,16 @@ function menuGestionDeClientes(veterinariaSeleccionada: Veterinaria) {
             let clienteSeleccionado = clientes[opcion - 1];
             menuCliente(clienteSeleccionado, veterinariaSeleccionada);
         } else if (opcion === clientes.length + 1) {
-            console.log("Volviendo al menú principal...");
-            mainMenu();
+            console.log("Volviendo al menú de la veterinaria...");
+            menuVeterinaria(veterinariaSeleccionada);
+        } else if (opcion === clientes.length + 2) {
+            console.log('Saliendo del programa...');
+            // corriendoPrograma = false;
+            process.exit();
         } else {
             console.log("Opción inválida. Inténtelo de nuevo.");
         }
-    } while (opcion !== veterinariaSeleccionada.getClientes().length + 1);
+    } while (opcion !== veterinariaSeleccionada.getClientes().length + 1 && opcion !== veterinariaSeleccionada.getClientes().length + 2);
 }
 
 function menuCliente(clienteSeleccionado: Cliente, veterinariaSeleccionada: Veterinaria) {
@@ -266,6 +292,7 @@ function menuCliente(clienteSeleccionado: Cliente, veterinariaSeleccionada: Vete
                 4. Registrar paciente
                 5. Mostrar pacientes
                 6. Atrás (volver a lista de clientes)
+                7. Salir
             `);
         opcion = parseInt(readlineSync.question('Seleccione una opcion: '));
 
@@ -304,28 +331,33 @@ function menuCliente(clienteSeleccionado: Cliente, veterinariaSeleccionada: Vete
         case 6:
         console.log('Volviendo a la gestion de clientes...');
         return;
+        case 7:
+        console.log('Saliendo del programa...');
+        // corriendoPrograma = false;
+        process.exit();
+        break;
         default:
         console.error('Opción inválida. Vuelva a intentarlo.');
     };
-    } while (opcion !== 6);
+    } while (opcion !== 6 && opcion !== 7);
 }
 
 function menuGestionDePacientes(clienteSeleccionado: Cliente ,veterinariaSeleccionada: Veterinaria): void {
     let opcion: number;
     do {
-        let pacientes = veterinariaSeleccionada.getPacientes();
+        let pacientes = clienteSeleccionado.getPacientes();
 
         //si NO hay pacientes registrados;
         if (pacientes.length === 0) {
-            console.error("Volviendo al menú principal...");
+            console.error("No hay pacientes registrados. Volviendo al menú anterior...");
             return; // vuelve al menu principal;
         }
 
         console.log('===== GESTIÓN DE PACIENTES ====');
-        pacientes.forEach((pacientes, index) => {
-            console.log(`${index + 1}. ${pacientes.getNombre().toUpperCase()}`);
+        pacientes.forEach((paciente, index) => {
+            console.log(`${index + 1}. ${paciente.getNombre().toUpperCase()}`);
         });
-        console.log(`${pacientes.length + 1}. Volver al menú principal`);
+        console.log(`${pacientes.length + 1}. Volver al menú anterior`);
         
         opcion = parseInt(readlineSync.question('Seleccione un cliente para gestionar: '));
 
@@ -334,12 +366,16 @@ function menuGestionDePacientes(clienteSeleccionado: Cliente ,veterinariaSelecci
             let pacienteSeleccionado = pacientes[opcion - 1];
             menuPaciente(pacienteSeleccionado, veterinariaSeleccionada, clienteSeleccionado);
         } else if (opcion === pacientes.length + 1) {
-            console.log("Volviendo al menú principal...");
-            mainMenu();
+            console.log("Volviendo al menú del cliente...");
+            menuCliente(clienteSeleccionado, veterinariaSeleccionada);
+        } else if (opcion === pacientes.length + 2) {
+            console.log('Saliendo del programa...');
+            // corriendoPrograma = false;
+            process.exit();
         } else {
             console.log("Opción inválida. Inténtelo de nuevo.");
         }
-    } while (opcion !== veterinariaSeleccionada.getPacientes().length + 1);
+    } while (opcion !== veterinariaSeleccionada.getPacientes().length + 1 && opcion !== veterinariaSeleccionada.getPacientes().length + 2);
 }
 
 function menuPaciente(pacienteSeleccionado: Paciente, veterinariaSeleccionada: Veterinaria, clienteSeleccionado: Cliente) {
@@ -348,9 +384,11 @@ function menuPaciente(pacienteSeleccionado: Paciente, veterinariaSeleccionada: V
         console.log(`
             ===== PACIENTE '${pacienteSeleccionado.getNombre().toUpperCase()}' =====
                 1. Mostrar información
-                2. Modificar datos del paciente
-                3. Dar de baja al paciente
-                4. Atrás (volver a lista de clientes)
+                2. Registrar visita
+                3. Modificar datos del paciente
+                4. Dar de baja al paciente
+                5. Atrás (volver a lista de clientes)
+                6. Salir
             `);
         opcion = parseInt(readlineSync.question('Seleccione una opcion: '));
 
@@ -359,6 +397,9 @@ function menuPaciente(pacienteSeleccionado: Paciente, veterinariaSeleccionada: V
             console.log(pacienteSeleccionado);
         break;
         case 2:
+            clienteSeleccionado.visitarVeterinaria();
+        break;
+        case 3:
             const cambiarNombre = readlineSync.question("Desea modificar el nombre? (y/n): ");
             let nombrePacienteMod: string | undefined;
             if (cambiarNombre.toLowerCase() === 'y') {
@@ -372,16 +413,21 @@ function menuPaciente(pacienteSeleccionado: Paciente, veterinariaSeleccionada: V
             }
             clienteSeleccionado.modPaciente(pacienteSeleccionado, {nombre: nombrePacienteMod, especie: especieMod})
         break;
-        case 3:
+        case 4:
             clienteSeleccionado.darBajaPaciente(pacienteSeleccionado);
             menuCliente(clienteSeleccionado, veterinariaSeleccionada);
         break;
-        case 4:
+        case 5:
         console.log('Volviendo a la gestion de pacientes...');
         return;
+        case 6:
+        console.log('Saliendo del programa...');
+        // corriendoPrograma = false;
+        process.exit()
+        break;
         default:
         console.error('Opción inválida. Vuelva a intentarlo.');
     };
-    } while (opcion !== 4);
+    } while (opcion !== 5 && opcion !== 6);
 }
 mainMenu();
