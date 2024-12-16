@@ -134,7 +134,7 @@ export class Cliente implements Registro<Cliente>  {
 
     registrarPaciente(paciente: Paciente): void {
         //verifica si el paciente esta registrado o no;
-        const pacienteRegistrado = this.pacientes.find(paciente => paciente.getNombre() === paciente.getNombre() && paciente.getEspecie() === paciente.getEspecie());
+        const pacienteRegistrado = this.pacientes.find(pacientes => pacientes.getNombre() === paciente.getNombre() && pacientes.getEspecie() === paciente.getEspecie());
         //si el paciente no fue registrado;
         if (!pacienteRegistrado) {
             if (this.ID !== null) {
@@ -148,27 +148,14 @@ export class Cliente implements Registro<Cliente>  {
         }
     }
 
-    public actualizarPacientes(): void {
-        // Itera sobre los clientes y agrega sus pacientes al array de pacientes.
-        this.pacientes.forEach(() => {
-            this.getPacientes().forEach(paciente => {
-                //evita que se dupliquen los pacientes.
-                if (!this.pacientes.find(p => p.getID() === paciente.getID())) {
-                this.pacientes.push(paciente);
-                }
-            });
-        });
-        }
-    
     public mostrarPacientes(): void {
-        this.actualizarPacientes();
         if (this.pacientes.length === 0) {
             console.log("No hay pacientes registrados.");
             return;
         }
-        console.log("Lista de Pacientes:");
+        console.log(`Lista de Pacientes de ${this.nombre}:`);
         this.pacientes.forEach((paciente, index) => {
-        console.log(`${index + 1}. Paciente: ${paciente.getNombre()}, Especie: ${paciente.getEspecie()}, Cliente: ${this.nombre}, ID: ${this.ID}`);
+        console.log(`${index + 1}. Paciente: ${paciente.getNombre()}, Especie: ${paciente.getEspecie()}, ID: ${this.ID}`);
         });
     }
     
