@@ -147,16 +147,12 @@ public actualizarPacientes(): void {
   });
 }
 
-
 public mostrarPacientes(): void {
   this.actualizarPacientes();
   if (this.pacientes.length === 0) {
     console.log("No hay pacientes registrados.");
     return;
   }
-  console.log("Lista de Pacientes:");
-  this.pacientes.forEach((paciente, index) => {
-  console.log(`${index + 1}. Paciente: ${paciente.getNombre()}, Especie: ${paciente.getEspecie()}, ClienteID: ${paciente.getID()}`);
-  });
+  this.clientes.forEach((cliente) => cliente.mostrarPacientes());
 }
 }

@@ -22,6 +22,7 @@ const cliente2 = new Cliente ('Juliana', 22846796834);
 //creacion de pacientes;
 const paciente1 = new Paciente('Perci', 'Gato');
 const pac2 = new Paciente('India', 'Perro');
+const pac3 = new Paciente('Luna', 'Gato');
 
 //registros de la Red;
 let registroVeterinarias: Veterinaria[] = RedVets.listadoVeterinarias();
@@ -47,47 +48,46 @@ let registroClientes2: Cliente[] = vet2.getClientes();
 
 //Registro de clientes;
 cliente1.registrarse(registroClientes1, registroID);
-cliente2.registrarse(registroClientes2, registroID);
+cliente2.registrarse(registroClientes1, registroID);
 
 //Registro de paciente;
 cliente1.registrarPaciente(paciente1);
-cliente1.registrarPaciente(pac2);
-cliente1.getPacientes();
+cliente2.registrarPaciente(pac2);
+cliente1.registrarPaciente(pac3);
 vet1.mostrarPacientes();
 
-console.log(cliente1);
 
-//Modificacion de registros
-cliente1.modRegistro(registroClientes1, {nombre: 'sadsa'});
-cliente1.modPaciente(paciente1, {especie: 'perro'});
-vet2.modRegistro(registroVeterinarias, {direccion: 'otra calle'});
-prov2.modRegistro(registroProveedores, {telefono: 123612932180937});
-prov1.modRegistro(registroProveedores, {telefono: 2180937});
+// //Modificacion de registros
+// cliente1.modRegistro(registroClientes1, {nombre: 'sadsa'});
+// cliente1.modPaciente(paciente1, {especie: 'perro'});
+// vet2.modRegistro(registroVeterinarias, {direccion: 'otra calle'});
+// prov2.modRegistro(registroProveedores, {telefono: 123612932180937});
+// prov1.modRegistro(registroProveedores, {telefono: 2180937});
 
-//Dada de baja
-cliente1.darBajaPaciente(paciente1);
-cliente2.darBaja(registroClientes2);
-vet2.darBaja(registroVeterinarias);
+// //Dada de baja
+// cliente1.darBajaPaciente(paciente1);
+// cliente2.darBaja(registroClientes2);
+// vet2.darBaja(registroVeterinarias);
 
-//Listas
-RedVets.mostrarVeterinarias();
-RedVets.mostrarProveedores();
-console.log('SUCURSAL 1');
-vet1.mostrarClientes();
-vet1.mostrarPacientes();
-console.log('SUCURSAL 2:');
-vet2.mostrarClientes();
-vet2.mostrarPacientes();
-console.log(`IDs registrados: ${registroID}`);
+// //Listas
+// RedVets.mostrarVeterinarias();
+// RedVets.mostrarProveedores();
+// console.log('SUCURSAL 1');
+// vet1.mostrarClientes();
+// vet1.mostrarPacientes();
+// console.log('SUCURSAL 2:');
+// vet2.mostrarClientes();
+// vet2.mostrarPacientes();
+// console.log(`IDs registrados: ${registroID}`);
 
-//VIP
-cliente1.visitarVeterinaria();
-cliente1.getVisitas();
-console.log(cliente1);
+// //VIP
+// cliente1.visitarVeterinaria();
+// cliente1.getVisitas();
+// console.log(cliente1);
 
-cliente1.visitarVeterinaria();
-cliente1.visitarVeterinaria();
-cliente1.visitarVeterinaria();
-console.log(cliente1);
-cliente1.visitarVeterinaria();
-console.log(cliente1);
+// cliente1.visitarVeterinaria();
+// cliente1.visitarVeterinaria();
+// cliente1.visitarVeterinaria();
+// console.log(cliente1);
+// cliente1.visitarVeterinaria();
+// console.log(cliente1);
