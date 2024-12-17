@@ -6,7 +6,6 @@ import { Proveedor } from './Proveedor';
 import { Cliente } from './Cliente';
 import { Paciente } from './Paciente';
 
-// let corriendoPrograma: boolean = true;
 let red = new RedVeterinaria('OLAFIP')
 
 function mainMenu() {
@@ -48,7 +47,6 @@ function mainMenu() {
             case 5:
             console.log('Saliendo del programa...');
             process.exit(); //cierra el programa
-            // corriendoPrograma = false;
             break;
             default:
             console.error('Opción inválida. Vuelva a intentarlo.');
@@ -84,7 +82,6 @@ function menuGestionDeVeterinarias() {
             mainMenu();
         } else if (opcion === veterinarias.length + 2) {
             console.log('Saliendo del programa...');
-            // corriendoPrograma = false;
             process.exit();
         } else {
             console.log("Opción inválida. Inténtelo de nuevo.");
@@ -153,7 +150,6 @@ function menuVeterinaria(veterinariaSeleccionada: Veterinaria) {
         return;
         case 7:
         console.log('Saliendo del programa...');
-        // corriendoPrograma = false;
         process.exit();
         break;
         default:
@@ -190,7 +186,6 @@ function menuGestionDeProveedores(){
             mainMenu();
         } else if (opcion === proveedores.length + 2) {
             console.log('Saliendo del programa...');
-            // corriendoPrograma = false;
             process.exit();
         } else {
             console.log("Opción inválida. Inténtelo de nuevo.");
@@ -236,7 +231,6 @@ function menuProveedor(proveedorSeleccionado: Proveedor) {
         return;
         case 4:
             console.log('Saliendo del programa...');
-            // corriendoPrograma = false;
             process.exit();
         break;
         default:
@@ -273,7 +267,6 @@ function menuGestionDeClientes(veterinariaSeleccionada: Veterinaria) {
             menuVeterinaria(veterinariaSeleccionada);
         } else if (opcion === clientes.length + 2) {
             console.log('Saliendo del programa...');
-            // corriendoPrograma = false;
             process.exit();
         } else {
             console.log("Opción inválida. Inténtelo de nuevo.");
@@ -298,7 +291,7 @@ function menuCliente(clienteSeleccionado: Cliente, veterinariaSeleccionada: Vete
 
     switch (opcion) {
         case 1:
-            console.log(clienteSeleccionado.toString());
+            console.log(clienteSeleccionado);
         break;
         case 2:
             let registroDeClientes = veterinariaSeleccionada.getClientes();
@@ -333,7 +326,6 @@ function menuCliente(clienteSeleccionado: Cliente, veterinariaSeleccionada: Vete
         return;
         case 7:
         console.log('Saliendo del programa...');
-        // corriendoPrograma = false;
         process.exit();
         break;
         default:
@@ -370,7 +362,6 @@ function menuGestionDePacientes(clienteSeleccionado: Cliente ,veterinariaSelecci
             menuCliente(clienteSeleccionado, veterinariaSeleccionada);
         } else if (opcion === pacientes.length + 2) {
             console.log('Saliendo del programa...');
-            // corriendoPrograma = false;
             process.exit();
         } else {
             console.log("Opción inválida. Inténtelo de nuevo.");
@@ -422,7 +413,6 @@ function menuPaciente(pacienteSeleccionado: Paciente, veterinariaSeleccionada: V
         return;
         case 6:
         console.log('Saliendo del programa...');
-        // corriendoPrograma = false;
         process.exit()
         break;
         default:
