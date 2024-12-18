@@ -61,7 +61,7 @@ function menuGestionDeVeterinarias() {
 
         //si NO hay veterinarias registradas;
         if (veterinarias.length === 0) {
-            console.error("No hay veterinarias registradas.Volviendo al menú principal...");
+            console.error("No hay veterinarias registradas.");
             return; // vuelve al menu principal;
         }
 
@@ -170,7 +170,7 @@ function menuGestionDeProveedores(){
 
         //si NO hay proveedores registrados;
         if (proveedores.length === 0) {
-            console.error("No hay proveedores registrados. Volviendo al menú principal...");
+            console.error("No hay proveedores registrados.");
             return; // vuelve al menu principal;
         }
 
@@ -407,12 +407,7 @@ function menuPaciente(pacienteSeleccionado: Paciente, veterinariaSeleccionada: V
                 nombrePacienteMod = readlineSync.question('Ingrese el nuevo nombre: ');
             }
 
-            const cambiarEspecie = readlineSync.question("Desea modificar la especie de su mascota? (y/n): ");
-            let especieMod: string | undefined;
-            if(cambiarEspecie.toLowerCase() === 'y') {
-                especieMod = readlineSync.question('Ingrese la especie: ');
-            }
-            clienteSeleccionado.modPaciente(pacienteSeleccionado, {nombre: nombrePacienteMod, especie: especieMod})
+            clienteSeleccionado.modPaciente(pacienteSeleccionado, {nombre: nombrePacienteMod})
         break;
         case 4:
             clienteSeleccionado.darBajaPaciente(pacienteSeleccionado);
