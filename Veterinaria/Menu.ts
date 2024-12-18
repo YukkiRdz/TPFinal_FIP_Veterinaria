@@ -107,7 +107,7 @@ function menuVeterinaria(veterinariaSeleccionada: Veterinaria) {
 
     switch (opcion) {
         case 1:
-            console.log(`Direccion: ${veterinariaSeleccionada.getDireccion()}, Telefono: ${veterinariaSeleccionada.getTelefono}, ID: ${veterinariaSeleccionada.getID()}`);
+            console.log(`Direccion: ${veterinariaSeleccionada.getDireccion()}, Telefono: ${veterinariaSeleccionada.getTelefono()}, ID: ${veterinariaSeleccionada.getID()}`);
         break;
         case 2:
             let registroDeClientes = veterinariaSeleccionada.getClientes();
