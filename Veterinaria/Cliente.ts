@@ -134,7 +134,7 @@ export class Cliente implements Registro<Cliente>  {
 
     registrarPaciente(paciente: Paciente): void {
         //verifica si el paciente esta registrado o no;
-        const pacienteRegistrado = this.pacientes.find(pacientes => pacientes.getNombre() === paciente.getNombre() && pacientes.getEspecie() === paciente.getEspecie());
+        const pacienteRegistrado = this.pacientes.find(p => p.getNombre() === paciente.getNombre() && p.getEspecie() === paciente.getEspecie());
         //si el paciente no fue registrado;
         if (!pacienteRegistrado) {
             if (this.ID !== null) {
@@ -161,7 +161,7 @@ export class Cliente implements Registro<Cliente>  {
     
     darBajaPaciente(paciente: Paciente): void {
         //verifica si el paciente esta registrado o no;
-        const pacienteRegistrado = this.pacientes.findIndex(paciente => paciente.getID() === paciente.getID());
+        const pacienteRegistrado = this.pacientes.findIndex(p => p.getNombre() === paciente.getNombre() && p.getEspecie() === paciente.getEspecie());
         //si el paciente esta registrado, lo elimina del array;
         if (pacienteRegistrado >= 0) {
             this.pacientes.splice(pacienteRegistrado, 1);
@@ -173,7 +173,7 @@ export class Cliente implements Registro<Cliente>  {
 
     modPaciente(paciente: Paciente, datosAModificar: { nombre?: string; especie?: string}): void {
         //verifica si el paciente esta registrado o no;
-        const indexPacienteRegistrado = this.pacientes.findIndex(paciente => paciente.getID() === paciente.getID());
+        const indexPacienteRegistrado = this.pacientes.findIndex(p => p.getNombre() === paciente.getNombre() && p.getEspecie() === paciente.getEspecie());
         //si el paciente esta registrado, modifica los datos ingresados;
         if (indexPacienteRegistrado >= 0) {
             const pacienteMod = this.pacientes[indexPacienteRegistrado];

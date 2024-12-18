@@ -67,7 +67,7 @@ function menuGestionDeVeterinarias() {
 
         console.log('===== GESTIÓN DE VETERINARIAS ====');
         veterinarias.forEach((veterinaria, index) => {
-            console.log(`${index + 1}. ${veterinaria.getNombre().toUpperCase()}, Dirección: ${veterinaria.getDireccion()}, Teléfono: ${veterinaria.getTelefono()}, ID: ${veterinaria.getID()}`);
+            console.log(`${index + 1}. ${veterinaria.getNombre().toUpperCase()}`);
         });
         console.log(`${veterinarias.length + 1}. Volver al menú principal`);
         
@@ -94,18 +94,22 @@ function menuVeterinaria(veterinariaSeleccionada: Veterinaria) {
     do {
         console.log(`
             ===== VETERINARIA '${veterinariaSeleccionada.getNombre().toUpperCase()}' =====
-                1. Registrar clientes
-                2. Mostrar clientes
-                3. Mostrar pacientes
-                4. Modificar datos de la veterinaria
-                5. Dar de baja veterinaria
-                6. Atrás (volver a la lista de veterinarias)
-                7. Salir
+                1. Mostrar datos
+                2. Registrar clientes
+                3. Mostrar clientes
+                4. Mostrar pacientes
+                5. Modificar datos de la veterinaria
+                6. Dar de baja veterinaria
+                7. Atrás (volver a la lista de veterinarias)
+                8. Salir
             `);
         opcion = parseInt(readlineSync.question('Seleccione una opcion: '));
 
     switch (opcion) {
         case 1:
+            console.log(`Direccion: ${veterinariaSeleccionada.getDireccion()}, Telefono: ${veterinariaSeleccionada.getTelefono}, ID: ${veterinariaSeleccionada.getID()}`);
+        break;
+        case 2:
             let registroDeClientes = veterinariaSeleccionada.getClientes();
             let registroDeID = red.listadoID()
             let clienteNombre = readlineSync.question('Ingrese el nombre: ');;
@@ -113,13 +117,13 @@ function menuVeterinaria(veterinariaSeleccionada: Veterinaria) {
             const nuevoCliente = new Cliente(clienteNombre, clienteTelefono);
             nuevoCliente.registrarse(registroDeClientes, registroDeID);
         break;
-        case 2:
+        case 3:
             menuGestionDeClientes(veterinariaSeleccionada);
         break;
-        case 3:
+        case 4:
             veterinariaSeleccionada.mostrarPacientes();
         break;
-        case 4:
+        case 5:
             let registroDeVeterinarias = red.listadoVeterinarias()
 
             const decisionNombre = readlineSync.question("Desea modificar el nombre? (y/n): ");
@@ -141,21 +145,22 @@ function menuVeterinaria(veterinariaSeleccionada: Veterinaria) {
             }
             veterinariaSeleccionada.modRegistro(registroDeVeterinarias, {nombre: nombreMod, direccion: direccionMod, telefono: telefonoMod})
         break;
-        case 5:
+        case 6:
             veterinariaSeleccionada.darBaja(red.listadoVeterinarias());
             mainMenu();
         break;
-        case 6:
-        console.log('Volviendo a la gestion de veterinarias...');
-        return;
         case 7:
+        console.log('Volviendo a la gestion de veterinarias...');
+        menuGestionDeVeterinarias();
+        break;
+        case 8:
         console.log('Saliendo del programa...');
         process.exit();
         break;
         default:
         console.error('Opción inválida. Vuelva a intentarlo.');
     }
-    } while (opcion !== 6 && opcion !== 7);
+    } while (opcion !== 7 && opcion !== 8);
 }
 
 function menuGestionDeProveedores(){
@@ -165,13 +170,13 @@ function menuGestionDeProveedores(){
 
         //si NO hay proveedores registrados;
         if (proveedores.length === 0) {
-            console.error("Volviendo al menú principal...");
+            console.error("No hay proveedores registrados. Volviendo al menú principal...");
             return; // vuelve al menu principal;
         }
 
         console.log('===== GESTIÓN DE PROVEEDORES ====');
         proveedores.forEach((proveedor, index) => {
-            console.log(`${index + 1}. ${proveedor.getNombre()}`);
+            console.log(`${index + 1}. ${proveedor.getNombre().toUpperCase()}`);
         });
         console.log(`${proveedores.length + 1}. Volver al menú principal`);
         
@@ -246,13 +251,13 @@ function menuGestionDeClientes(veterinariaSeleccionada: Veterinaria) {
 
         //si NO hay clientes registrados;
         if (clientes.length === 0) {
-            console.error("Volviendo al menú principal...");
+            console.error("No hay clientes registrados.");
             return; // vuelve al menu principal;
         }
 
         console.log('===== GESTIÓN DE CLIENTES ====');
         clientes.forEach((clientes, index) => {
-            console.log(`${index + 1}. ${clientes.getNombre()}`);
+            console.log(`${index + 1}. ${clientes.getNombre().toUpperCase()}`);
         });
         console.log(`${clientes.length + 1}. Volver al menú anterior`);
         
@@ -311,10 +316,14 @@ function menuCliente(clienteSeleccionado: Cliente, veterinariaSeleccionada: Vete
         break;
         case 3:
             clienteSeleccionado.darBaja(veterinariaSeleccionada.getClientes());
+            menuGestionDeClientes(veterinariaSeleccionada);
         break;
         case 4:
-            let pacienteNombre = readlineSync.question('Ingrese el nombre del paciente: ');;
-            let pacienteEspecie = readlineSync.question('Ingrese la especie del paciente: ');
+            let pacienteNombre = readlineSync.question('Ingrese el nombre del paciente: ');
+            let pacienteEspecie = readlineSync.question('Ingrese la especie del paciente: ').toLowerCase();
+            if (pacienteEspecie !==  'perro' && pacienteEspecie !== 'perra' && pacienteEspecie !== 'gato' && pacienteEspecie !== 'gata') {
+                pacienteEspecie = `${pacienteEspecie} (exotica)`;
+            }
             const nuevoPaciente = new Paciente(pacienteNombre, pacienteEspecie);
             clienteSeleccionado.registrarPaciente(nuevoPaciente);
         break;
@@ -323,7 +332,8 @@ function menuCliente(clienteSeleccionado: Cliente, veterinariaSeleccionada: Vete
         break;
         case 6:
         console.log('Volviendo a la gestion de clientes...');
-        return;
+        menuGestionDeClientes(veterinariaSeleccionada);
+        break;
         case 7:
         console.log('Saliendo del programa...');
         process.exit();
@@ -341,7 +351,7 @@ function menuGestionDePacientes(clienteSeleccionado: Cliente ,veterinariaSelecci
 
         //si NO hay pacientes registrados;
         if (pacientes.length === 0) {
-            console.error("No hay pacientes registrados. Volviendo al menú anterior...");
+            console.error("No hay pacientes registrados.");
             return; // vuelve al menu principal;
         }
 
